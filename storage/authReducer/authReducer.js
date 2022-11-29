@@ -1,5 +1,5 @@
 import * as axios from 'axios'
-import api from "../axios/api";
+import api, {serverUrl} from "../axios/api";
 
 const SET_USER = 'SET_USER'
 
@@ -24,7 +24,7 @@ export default function authReducer(state = initialState, action) {
 export const setUser = (user) => ({type:SET_USER, user})
 
 export const loginThunk = (login, password) => async (dispatch) => {
-    const response = await axios.post(`http://localhost:8000/admin/login`,{
+    const response = await axios.post(`${serverUrl}/admin/login`,{
         login:login,
         password:password,
     }, {withCredentials:true})
@@ -34,6 +34,6 @@ export const loginThunk = (login, password) => async (dispatch) => {
 }
 
 export const loginByToken = () => async (dispatch) => {
-    const response = await api.post(`http://localhost:8000/admin/loginByToken`,{withCredentials:true})
+    const response = await api.post(`${serverUrl}/admin/loginByToken`,{withCredentials:true})
     dispatch(setUser(response.data))
 }
