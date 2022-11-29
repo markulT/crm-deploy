@@ -97,6 +97,12 @@ export default function ClientPage() {
                             Номер телефона:
                         </div>
                     }/>
+                    <ClientField value={currentClient?.signDate} title={
+                        <div className="flex items-center">
+                            <AiFillPhone className={'mr-2'} />
+                            Дата регистрации:
+                        </div>
+                    }/>
                     <div className="basis-1/2">
                         <h3 className="text-gray-600 text-xl font-medium flex items-center">
                             <FiMail className={'mr-2'} />
@@ -122,6 +128,12 @@ export default function ClientPage() {
                         <div className="flex items-center">
                             <RiFundsFill className='mr-2'></RiFundsFill>
                             Тарифный план:
+                        </div>
+                    }/>
+                    <ClientField value={ministraClient?.ministraDate} title={
+                        <div className="flex items-center">
+                            <RiFundsFill className='mr-2'></RiFundsFill>
+                            Дата покупки:
                         </div>
                     }/>
                     <ClientField value={ministraClient?.ip} title={'IP:'}/>
@@ -166,6 +178,7 @@ export default function ClientPage() {
                     </div>
                     <ClientField title={'Уровень подписки'} value={currentClient.mobileSubLevel == '1' ? 'Стандарт' : ''} />
                     <ClientField title={'Order ID'} value={currentClient.mobileSubOrderId} />
+                    <ClientField title={'Дата подписки Mobile Maximum'} value={currentClient.mobileDate} />
                 </div>
                 <button onClick={()=>{
                     handleCancelSub(currentClient._id)
