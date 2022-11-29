@@ -49,7 +49,7 @@ input:focus{ outline:none; }
 
 /* LABEL ======================================= */
 label 				 {
-  color:#999;
+  color:#EBEBEB;
   font-size:18px;
   font-weight:normal;
   position:absolute;
@@ -65,7 +65,7 @@ label 				 {
 input:focus ~ label, input:valid ~ label 		{
   top:-20px;
   font-size:14px;
-  color:#868686;
+  color:#C0C0C0;
 }
 
 /* BOTTOM BARS ================================= */
@@ -76,7 +76,7 @@ input:focus ~ label, input:valid ~ label 		{
   width:0;
   bottom:1px;
   position:absolute;
-  background:#5264AE;
+  background:#EBEBEB;
   transition:0.2s ease all;
   -moz-transition:0.2s ease all;
   -webkit-transition:0.2s ease all;

@@ -5,6 +5,11 @@ const api = axios.create({
     baseUrl: '',
 })
 
+const refreshApi = axios.create({
+    withCredentials:true,
+    baseUrl:''
+})
+
 api.interceptors.request.use((config) => {
     config.headers.Authorization = `Bearer ${localStorage.getItem('token')}`
     return config
@@ -15,10 +20,11 @@ api.interceptors.response.use((config) => {
 }, async (error) => {
     const originalRequest = error.config
     if (error.response.status == 401) {
+        console.log('refreshing token')
+        const response = await axios.post(`http://localhost:8000/admin/refresh`,{},{withCredentials:true})
 
-        const response = await axios.get(`http://localhost:8000/api/refresh`, { withCredentials: true })
-
-        localStorage.setItem('token', response.data.accessToken)
+        console.log(response.data)
+        localStorage.setItem('token', response.data.adminData.accessToken)
         return api.request(originalRequest)
     }
 })

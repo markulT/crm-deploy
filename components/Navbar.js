@@ -34,7 +34,7 @@ export default function Navbar() {
                     </div>
                     <h2 className={`text-xl ${open ? 'visible ml-4' : 'hidden'}`}>Home</h2>
                 </div>
-                <div onClick={()=>{router.push('/clients')}} className="flex cursor-pointer mt-8 items-center justify-center">
+                <div onClick={()=>{router.push('/clients/1')}} className="flex cursor-pointer mt-8 items-center justify-center">
                     <div className="rounded-[50%] p-2 bg-icon-bg">
                         <AiOutlineUser className="text-3xl"/>
                     </div>
