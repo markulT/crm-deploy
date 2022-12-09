@@ -10,8 +10,8 @@ module.exports = {
       colors: {
         'dead_violet': '#9988CC',
         'nav_black': "#000500",
-        "grad_to": "#4286f4",
-        "grad_from": '#373f44',
+        "grad_to":"#537895",
+        "grad_from":'#09203F',
         'text-gray': '#868686',
         "grad_to_dark": '#2e3234',
         "grad_from_dark": '#0944a2',
@@ -21,7 +21,31 @@ module.exports = {
         "content":"#EBEBEB",
         "content-sec":"#C0C0C0",
         "wild-orange":"#FF6700"
+        
       },
+      keyframes: {
+        right_pag: {
+          '0%': { transform: 'translate(0px, 0px)' },
+          '50%': { transform: 'translate(70px, 0px)' },
+          '100%': { transform: 'translate(0px, 0px)' },
+      },
+      left_pag: {
+        '0%': { transform: 'translate(0px, 0px)' },
+        '50%': { transform: 'translate(-70px, 0px)' },
+        '100%': { transform: 'translate(0px, 0px)' },
+    },
+     refresh: {
+'0%': {transform: 'rotate(0deg)'},
+'100%': {transform: 'rotate(-360deg)'}
+     },
+    },
+      animation: {
+        'right_pag_animate': 'right_pag 1s ease-in-out',
+        'left_pag_animate': 'left_pag 1s ease-in-out',
+        'refresh_rotate': 'refresh 1s ease-in-out'
+
+      }
+
     },
   },
   plugins: [],

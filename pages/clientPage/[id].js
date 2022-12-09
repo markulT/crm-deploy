@@ -1,4 +1,4 @@
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {
     cancelsub,
@@ -36,6 +36,7 @@ export default function ClientPage() {
     const currentClient = useSelector(state => state.clientsReducer.currentClient)
     const ministraClient = useSelector(state => state.clientsReducer.currentClientMinistra)
     const admin = useSelector(state => state.authReducer)
+    const [areYouSure, setAreYouSure] = useState(false)
 
     const handleCancelSub = (id) => {
         dispatch(cancelsub(id))
@@ -56,122 +57,161 @@ export default function ClientPage() {
     }, [])
 
     return (
-        <div className="w-full min-h-screen flex-1 bg-content">
-            <div className="container mx-auto text-black min-h-screen">
+        <div className="min-w-screen min-h-screen flex-1 bg-gradient-to-t from-gray-700 to-gray-600">
+            <div className="container mx-auto text-gray-200 min-h-screen ">
                 <Link href={'/clients/1'}>
-                    <MdNavigateBefore className='text-4xl mt-8 cursor-pointer rounded-[50%] bg-icon-bg text-white'/>
+                    <MdNavigateBefore className='text-4xl mt-8 cursor-pointer rounded-[50%] bg-gray-800 text-gray-300 mx-10'/>
                 </Link>
 
-                <h2 className="text-3xl flex items-center mt-8 text-black font-[Roboto] font-medium">
-                    <AiOutlineUser className='text-3xl mr-2'/>
+                <h2 className="text-3xl flex items-center mt-8 text-gray-300 font-[Roboto] font-medium mx-10">
+                    <AiOutlineUser className='text-3xl mr-2 text-gray-300'/>
                     {currentClient?.login}
                 </h2>
-                <div className="flex flex-wrap w-full bg-content-sec rounded-3xl p-4 mt-4">
-                    <ClientField value={currentClient?.fullName} title={
+                <div className=" bg-gray-800 rounded-3xl p-4 mt-4 mx-10 text-gray-200">
+                    <div className="grid gap-2 grid-cols-2">
+
+                    <div>
+                    <ClientField className="text-gray-200" value={currentClient?.fullName} title={
                         <div className="flex items-center">
-                            <FaRegAddressCard className='mr-2'/>
+                            <FaRegAddressCard className='mr-2 text-gray-500'/>
                             Full Name:
                         </div>
                     }/>
-                    <ClientField value={currentClient?.acqId} title={
+                    </div>
+
+                    <div>
+                    <ClientField value={currentClient?.acqId ? currentClient?.acqId : "Нету" } title={
                         <div className="flex items-center">
-                            <AiOutlineCode className='mr-2'></AiOutlineCode>
+                            <AiOutlineCode className='mr-2 text-gray-500'></AiOutlineCode>
                             ID покупателя:
                         </div>
                     }/>
-                    <ClientField value={currentClient?.orderId} title={
+                    </div>
+
+                    <div>
+                    <ClientField value={currentClient?.orderId ? currentClient.orderId : "Нету"} title={
                         <div className="flex items-center">
-                            <AiOutlineShoppingCart className='mr-2'></AiOutlineShoppingCart>
+                            <AiOutlineShoppingCart className='mr-2 text-gray-500'></AiOutlineShoppingCart>
                             Order ID:
                         </div>
                     }/>
+                    </div>
+
+                    <div>
                     <ClientField value={currentClient?.address} title={
                         <div className="flex items-center">
-                            <BiHomeAlt className='mr-2'></BiHomeAlt>
+                            <BiHomeAlt className='mr-2 text-gray-500'></BiHomeAlt>
                             Address:
                         </div>
                     }/>
+                    </div>
+
+                    <div>
                     <ClientField value={currentClient?.phone} title={
                         <div className="flex items-center">
-                            <AiFillPhone className={'mr-2'} />
+                            <AiFillPhone className={'mr-2 text-gray-500'} />
                             Номер телефона:
                         </div>
                     }/>
+                    </div>
+
+                    <div>
                     <ClientField value={currentClient?.signDate} title={
                         <div className="flex items-center">
-                            <AiFillPhone className={'mr-2'} />
+                            <AiFillPhone className={'mr-2 text-gray-500'} />
                             Дата регистрации:
                         </div>
                     }/>
+                    </div>
+
+                    <div>
                     <div className="basis-1/2">
-                        <h3 className="text-gray-600 text-xl font-medium flex items-center">
+                        <h3 className="text-gray-500 text-xl font-medium flex items-center">
                             <FiMail className={'mr-2'} />
                             Email</h3>
-                        <h3 className="text-2xl text-black font=[Roboto] font-medium">{currentClient?.email}</h3>
+                        <h3 className="text-2xl text-gray-400 font=[Roboto] font-medium">{currentClient?.email}</h3>
                     </div>
+                    </div>
+
+                    <div>
                     {currentClient?.dealer ? <div className="basis-1/2">
                         <h3 className="text-gray-600 text-xl font-medium">Dealer:</h3>
-                        <h3 className="text-2xl text-black font=[Roboto] font-medium">{currentClient?.dealer}</h3>
+                        <h3 className="text-2xl text-gray-400 font=[Roboto] font-medium">{currentClient?.dealer}</h3>
                     </div> : <div className="basis-1/2">
-                        <h3 className="text-gray-600 text-xl font-medium">Dealer:</h3>
-                        <h3 className="text-2xl text-black font=[Roboto] font-medium">У этого пользователя нет
-                            дилера</h3>
+                        <h3 className="text-gray-500 text-xl font-medium">Dealer:</h3>
+                        <h3 className="text-2xl text-gray-400 font=[Roboto] font-medium">Без дилера</h3>
                     </div>}
+                    </div>
+
+                    <div>
                     <div className="basis-1/2">
-                        <h3 className="text-gray-600 text-xl font-medium flex items-center">
-                            <GiAerialSignal className='mr-2'/>
+                        <h3 className="text-gray-500 text-xl font-medium flex items-center">
+                            <GiAerialSignal className='mr-2 text-gray-400'/>
                             Mac Address :
                         </h3>
-                        <h3 className="text-2xl text-black font=[Roboto] font-medium">{ministraClient?.stb_mac ? ministraClient.stb_mac : 'Пользователь не установил мак адрес'}</h3>
+                        <h3 className="text-2xl text-gray-400 font=[Roboto] font-medium">{ministraClient?.stb_mac ? ministraClient.stb_mac : 'Не установлен'}</h3>
                     </div>
-                    <ClientField value={ministraClient?.tariff_plan} title={
+                    </div>
+
+                    <div>
+                    <ClientField value={ministraClient?.tariff_plan == "1" ? "Стандарт" : ministraClient?.tariff_plan == "2" ? "Премиум" : "Нету"} title={
                         <div className="flex items-center">
-                            <RiFundsFill className='mr-2'></RiFundsFill>
+                            <RiFundsFill className='mr-2 text-gray-500'></RiFundsFill>
                             Тарифный план:
                         </div>
                     }/>
-                    <ClientField value={ministraClient?.ministraDate} title={
+                    </div>
+
+                    <div>
+                    <ClientField value={ministraClient?.ministraDate ? ministraClient?.ministraDate : "Неизвестно" } title={
                         <div className="flex items-center">
-                            <RiFundsFill className='mr-2'></RiFundsFill>
+                            <RiFundsFill className='mr-2 text-gray-500'></RiFundsFill>
                             Дата покупки:
                         </div>
                     }/>
-                    <ClientField value={ministraClient?.ip} title={'IP:'}/>
+                    </div>
 
+                    <div>
+                    <ClientField value={ministraClient?.ip} title={'IP:'}/>
+                    </div>
+
+                    <div>
                     <div className="basis-1/2">
-                        <h3 className="text-gray-600 text-xl font-medium flex items-center">
-                            <AiOutlineWifi className={'mr-2'} />
+                        <h3 className="text-gray-500 text-xl font-medium flex items-center">
+                            <AiOutlineWifi className={'mr-2 text-gray-500'} />
                             Status
                         </h3>
-                        <h3 className="text-2xl text-black font=[Roboto] font-medium">{ministraClient?.online == '0' ?
+                        <h3 className="text-2xl text-gray-400 font=[Roboto] font-medium">{ministraClient?.online == '0' ?
                             <div className='flex items-center'>
-                                <AiFillCloseCircle className='text-xl inline text-red-600'/>
+                                <AiFillCloseCircle className='text-xl inline text-red-600 mr-2'/>
                                 <p>Offline</p>
                             </div>
                             :
                             <div className='flex items-center'>
-                                <AiFillCheckCircle className='text-xl inline text-green-500'/>
+                                <AiFillCheckCircle className='text-xl inline text-green-500 mr-2'/>
                                 <p>Online</p>
                             </div>}</h3>
+                            </div>
+                            </div>
                     </div>
 
                 </div>
-                <h3 className={'text-3xl mt-4'}>Подписка Mobile Maximum</h3>
-                <div className={`flex flex-wrap w-full bg-content-sec rounded-3xl p-4 mt-4`}>
+                <h3 className={'text-3xl mt-4 mx-10'}>Подписка Mobile</h3>
+                <div className={`flex flex-wrap w-100 bg-gray-800 rounded-3xl p-4 mt-4 mx-10`}>
                     <div className="basis-1/2">
-                        <h3 className="text-gray-600 text-xl font-medium flex items-center">
+                        <h3 className="text-gray-500 text-xl font-medium flex items-center">
 
                             <AiOutlineWifi className={'mr-2'} />
                             Статус подписки
                         </h3>
-                        <h3 className="text-2xl text-black font=[Roboto] font-medium">{currentClient.mobileSubExists ?
+                        <h3 className="text-2xl text-gray-400 font=[Roboto] font-medium">{currentClient.mobileSubExists ?
                             <div className='flex items-center'>
-                                <AiFillCheckCircle className='text-xl inline text-green-500'/>
+                                <AiFillCheckCircle className='text-xl inline text-green-500 mr-2'/>
                                 <p>Подписан</p>
                             </div>
                             :
                             <div className='flex items-center'>
-                                <AiFillCloseCircle className='text-xl inline text-red-600'/>
+                                <AiFillCloseCircle className='text-xl inline text-red-600 mr-2'/>
                                 <p>Не подписан</p>
                             </div>}
                         </h3>
@@ -181,12 +221,20 @@ export default function ClientPage() {
                     <ClientField title={'Дата подписки Mobile Maximum'} value={currentClient.mobileDate} />
                 </div>
                 <button onClick={()=>{
-                    handleCancelSub(currentClient._id)
-                }} className={'bg-red-600 rounded-3xl p-4'}>Отменить подписку</button>
-                <button onClick={() => {
+                    setAreYouSure(!areYouSure)
+                    // handleCancelSub(currentClient._id)
+                }} className={'bg-red-600 hover:bg-red-700 rounded-3xl p-4 ml-10 mt-5 mb-5'}>Отменить подписку</button>
+                {/* <button onClick={() => {
                     console.log(currentClient)
                 }}>Get client
-                </button>
+                </button> */}
+                <button onClick={()=>{
+                    handleCancelSub(currentClient._id)
+                    setAreYouSure(!areYouSure)
+                }} className={`${areYouSure ? "visible bg-red-600 hover:bg-red-700 rounded-2xl p-4 ml-5  px-7" : "hidden"}`}>Да</button>
+                <button onClick={()=>{
+                    setAreYouSure(!areYouSure)
+                }} className={`${areYouSure ? "visible bg-green-600 hover:bg-green-700 rounded-2xl p-4 ml-5 px-6" : "hidden"}`}>Нет</button>
             </div>
         </div>
     )
