@@ -1,6 +1,7 @@
 import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {
+    cancelMinistraSub,
     cancelsub,
     getUser,
     setCurrentClient,
@@ -26,6 +27,7 @@ import CancelButton from "../../components/CancelButton";
 import {FiMail} from "@react-icons/all-files/fi/FiMail";
 import {AiOutlineWifi} from "@react-icons/all-files/ai/AiOutlineWifi";
 import {AiFillPhone} from "@react-icons/all-files/ai/AiFillPhone";
+import SubmitButton from "../../components/SubmitButton";
 
 
 
@@ -38,8 +40,13 @@ export default function ClientPage() {
     const admin = useSelector(state => state.authReducer)
     const [areYouSure, setAreYouSure] = useState(false)
 
+
     const handleCancelSub = (id) => {
         dispatch(cancelsub(id))
+        dispatch(getUser(id))
+    }
+    const handleMinistraSub = () => {
+        dispatch(cancelMinistraSub(id))
         dispatch(getUser(id))
     }
 
@@ -196,6 +203,9 @@ export default function ClientPage() {
                     </div>
 
                 </div>
+                <SubmitButton callback={()=>{
+                    handleMinistraSub(currentClient._id)
+                }} />
                 <h3 className={'text-3xl mt-4 mx-10'}>Подписка Mobile</h3>
                 <div className={`flex flex-wrap w-100 bg-gray-800 rounded-3xl p-4 mt-4 mx-10`}>
                     <div className="basis-1/2">
@@ -220,21 +230,9 @@ export default function ClientPage() {
                     <ClientField title={'Order ID'} value={currentClient.mobileSubOrderId} />
                     <ClientField title={'Дата подписки Mobile Maximum'} value={currentClient.mobileDate} />
                 </div>
-                <button onClick={()=>{
-                    setAreYouSure(!areYouSure)
-                    // handleCancelSub(currentClient._id)
-                }} className={'bg-red-600 hover:bg-red-700 rounded-3xl p-4 ml-10 mt-5 mb-5'}>Отменить подписку</button>
-                {/* <button onClick={() => {
-                    console.log(currentClient)
-                }}>Get client
-                </button> */}
-                <button onClick={()=>{
+                <SubmitButton callback={()=>{
                     handleCancelSub(currentClient._id)
-                    setAreYouSure(!areYouSure)
-                }} className={`${areYouSure ? "visible bg-red-600 hover:bg-red-700 rounded-2xl p-4 ml-5  px-7" : "hidden"}`}>Да</button>
-                <button onClick={()=>{
-                    setAreYouSure(!areYouSure)
-                }} className={`${areYouSure ? "visible bg-green-600 hover:bg-green-700 rounded-2xl p-4 ml-5 px-6" : "hidden"}`}>Нет</button>
+                }} />
             </div>
         </div>
     )

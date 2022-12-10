@@ -62,7 +62,7 @@ export const getPage = (pageSize, pageId) => async (dispatch) => {
 
 export const getUser = (id) => async (dispatch) => {
     const response = await api.get(`${serverUrl}/admin/getUser/${id}`, {withCredentials: true})
-    if(!response.data) {
+    if (!response.data) {
         Router.push('/auth/login')
     }
     dispatch(setCurrentMinstraClient(JSON.parse(response.data.clientMinistra)))
@@ -90,6 +90,8 @@ export const findUsersRegex = (searchQuery, pageId) => async (dispatch) => {
 }
 
 export const cancelsub = (id) => async (dispatch) => {
-    const response = await api.delete(`${serverUrl}/admin/cancelMobileSub/${id}`,{withCredentials:true})
-    console.log(response.data)
+    const response = await api.delete(`${serverUrl}/admin/cancelMobileSub/${id}`, {withCredentials: true})
+}
+export const cancelMinistraSub = (id) => async (dispatch) => {
+    const response = await api.delete(`${serverUrl}/admin/cancelSub/${id}`, {withCredentials:true})
 }

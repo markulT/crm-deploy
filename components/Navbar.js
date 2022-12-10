@@ -18,14 +18,14 @@ export default function Navbar() {
 
     return (
         <div className={`${open ? "w-72" : "w-20"} transition-all duration-300 ease-in-out min-h-full bg-gray-800 relative items-center justify-center`}>
-            <div className="flex flex-col items-center">
-            <AiOutlineMenu onClick={()=>{setOpen(!open)}} className={`mt-8 text-4xl cursor-pointer`} />
+            <div className="flex flex-col items-start pl-4 pr-4">
+            <AiOutlineMenu onClick={()=>{setOpen(!open)}} className={`mt-8 text-4xl cursor-pointer self-center`} />
 
                 <div className="flex mt-8 items-center justify-center">
                     <div className="rounded-[50%] p-2 bg-gray-600 ">
                         <RiAdminLine className="text-3xl text-white" />
                     </div>
-                    <h2 className={`text-xl ${open ? 'visible ml-4' : 'hidden'}`}>{admin.login ? admin.login : 'Login firstв'}</h2>
+                    <h2 className={`text-xl ${open ? 'visible ml-4' : 'hidden'}`}>{admin.login ? admin.login : 'Login first'}</h2>
                 </div>
 
                 <div onClick={()=>{router.push('/')}} className="flex cursor-pointer mt-8 items-center justify-center">
