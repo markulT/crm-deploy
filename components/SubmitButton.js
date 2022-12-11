@@ -10,7 +10,7 @@ export default function SubmitButton({callback}) {
             <button onClick={() => {
                 setAreYouSure(!areYouSure)
                 // handleCancelSub(currentClient._id)
-            }} className={'bg-red-600 hover:bg-red-700 rounded-3xl p-4 ml-10 mt-5 mb-5'}>Отменить подписку
+            }} className={'bg-red-600 hover:bg-red-700 rounded-3xl p-4 ml-10 mt-5 mb-5 transition-all duration-300'}>Отменить подписку
             </button>
             {/* <button onClick={() => {
                     console.log(currentClient)
@@ -20,12 +20,12 @@ export default function SubmitButton({callback}) {
                 callback()
                 setAreYouSure(!areYouSure)
             }}
-                    className={`${areYouSure ? "visible bg-red-600 hover:bg-red-700 rounded-2xl p-4 ml-5  px-7" : "hidden"}`}>Да
+                    className={`${areYouSure ? "visible bg-green-600 hover:bg-green-700 rounded-2xl p-4 ml-5  px-7 transition-all duration-300"  : "hidden"}`}>Да
             </button>
             <button onClick={() => {
                 setAreYouSure(!areYouSure)
             }}
-                    className={`${areYouSure ? "visible bg-green-600 hover:bg-green-700 rounded-2xl p-4 ml-5 px-6" : "hidden"}`}>Нет
+                    className={`${areYouSure ? "visible bg-red-600 hover:bg-red-700 rounded-2xl p-4 ml-5 px-6 transition-all duration-300" : "hidden"}`}>Нет
             </button>
         </>
     )

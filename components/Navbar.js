@@ -17,37 +17,37 @@ export default function Navbar() {
     const router = useRouter()
 
     return (
-        <div className={`${open ? "w-72" : "w-20"} transition-all duration-300 ease-in-out min-h-full bg-gray-800 relative items-center justify-center`}>
+        <div className={`${open ? "w-72 px-14" : "w-20"} transition-all duration-300 ease-in-out min-h-full bg-gray-800 items-center justify-center`}>
             <div className="flex flex-col items-start pl-4 pr-4">
             <AiOutlineMenu onClick={()=>{setOpen(!open)}} className={`mt-8 text-4xl cursor-pointer self-center`} />
 
-                <div className="flex mt-8 items-center justify-center">
+                <div className={`flex mt-8 items-center justify-center`}>
                     <div className="rounded-[50%] p-2 bg-gray-600 ">
                         <RiAdminLine className="text-3xl text-white" />
                     </div>
-                    <h2 className={`text-xl ${open ? 'visible ml-4' : 'hidden'}`}>{admin.login ? admin.login : 'Login first'}</h2>
+                    <h2 className={`text-xl ${open ? 'visible ml-4' : 'hidden'}`}>{admin.login ? admin.login : 'Залогиньтесь'}</h2>
                 </div>
 
                 <div onClick={()=>{router.push('/')}} className="flex cursor-pointer mt-8 items-center justify-center">
-                    <div className="rounded-[50%] p-2 bg-gray-600 hover:bg-gray-700">
+                    <div className="rounded-[50%] p-2 bg-gray-600 hover:bg-gray-700 transition-all duration-300 ease-in-out">
                         <AiOutlineHome className="text-3xl text-white" />
                     </div>
                     <h2 className={`text-xl ${open ? 'visible ml-4' : 'hidden'}`}>Home</h2>
                 </div>
                 <div onClick={()=>{router.push('/clients/1')}} className="flex cursor-pointer mt-8 items-center justify-center">
-                    <div className="rounded-[50%] p-2 bg-gray-600 hover:bg-gray-700">
+                    <div className="rounded-[50%] p-2 bg-gray-600 hover:bg-gray-700 transition-all duration-300 ease-in-out">
                         <AiOutlineUser className="text-3xl"/>
                     </div>
                     <h2 className={`text-xl ${open ? 'visible ml-4' : 'hidden'}`}>Clients</h2>
                 </div>
                 <div onClick={()=>{router.push('/analytics')}} className="flex cursor-pointer mt-8 items-center justify-center">
-                    <div className="rounded-[50%] p-2 bg-gray-600 hover:bg-gray-700">
+                    <div className="rounded-[50%] p-2 bg-gray-600 hover:bg-gray-700 transition-all duration-300 ease-in-out">
                         <IoAnalytics className="text-3xl text-white" />
                     </div>
                     <h2 className={`text-xl ${open ? 'visible ml-4' : 'hidden'}`}>Analytics</h2>
                 </div>
                 <div onClick={()=>{router.push('/auth/login')}} className="flex cursor-pointer mt-8 items-center justify-center">
-                    <div className="rounded-[50%] p-2 bg-gray-600 hover:bg-gray-700">
+                    <div className="rounded-[50%] p-2 bg-gray-600 hover:bg-gray-700 transition-all duration-300 ease-in-out">
                         <BiLogIn className="text-3xl text-white" />
                     </div>
                     <h2 className={`text-xl ${open ? 'visible ml-4' : 'hidden'}`}>Login</h2>

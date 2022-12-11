@@ -42,7 +42,7 @@ module.exports = {
       animation: {
         'right_pag_animate': 'right_pag 1s ease-in-out',
         'left_pag_animate': 'left_pag 1s ease-in-out',
-        'refresh_rotate': 'refresh 1s ease-in-out'
+        'refresh_rotate': 'refresh 0.7s ease-in-out'
 
       }
 

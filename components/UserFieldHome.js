@@ -6,7 +6,7 @@ import {useDispatch} from "react-redux";
 import {deleteClient, getUsers} from "../storage/clientsReducer/clientsReducer";
 import {useRouter} from "next/router";
 
-export default function UserField ({client}) {
+export default function UserField2 ({client}) {
     const [submitActive, setSubmitActive] = useState(false)
 
     const dispatch = useDispatch()
@@ -19,7 +19,7 @@ export default function UserField ({client}) {
     return (
         <div className="">
         <div className="">
-        <div className="bg-gray-800  relative rounded-xl mt-4 cursor-pointer">
+        <div className="bg-gray-700 relative rounded-xl mt-4 cursor-pointer">
             <div className="grid gap-0 grid-cols-3 grid-rows-1 p-3 rounded-xl items-center" onClick={() => {
                 router.push(`/clientPage/${client._id}`)
             }}>
@@ -54,7 +54,7 @@ export default function UserField ({client}) {
                 <h3 className="flex text-xl">Нету <ImCross className="text-red-600 mt-1 ml-2 text-xl"/></h3>}</h3>
            </div>
             </div>
-            <h3 className="text-xl">
+            {/* <h3 className="text-xl">
                 {submitActive ?
                     <div className={'flex justify-center'}>
                         <h3 className={'cursor-pointer mb-3 bg-green-500 hover:bg-green-600 p-2 px-3 rounded-xl transition-all duration-300'} onClick={()=>{deleteUser(client._id)}} >Подтвердить</h3>
@@ -62,7 +62,7 @@ export default function UserField ({client}) {
                     </div>
                     :
                 <BiTrash className="absolute right-2 bottom-2 text-red-600 hover:text-red-700 transition-all duration-300 text-3xl cursor-pointer" onClick={() => {setSubmitActive(true)}}/>}
-            </h3>
+            </h3> */}
         </div>
         </div>
         </div>

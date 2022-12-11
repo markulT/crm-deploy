@@ -66,9 +66,9 @@ export default function ClientPage() {
     return (
         <div className="min-w-screen min-h-screen flex-1 bg-gradient-to-t from-gray-700 to-gray-600">
             <div className="container mx-auto text-gray-200 min-h-screen ">
-                <Link href={'/clients/1'}>
-                    <MdNavigateBefore className='text-4xl mt-8 cursor-pointer rounded-[50%] bg-gray-800 text-gray-300 mx-10'/>
-                </Link>
+                {/* <Link href={'/clients/1'}> */}
+                    <MdNavigateBefore className='text-4xl mt-8 cursor-pointer rounded-[50%] bg-gray-800 text-gray-300 mx-10' onClick={() => router.back()}/>
+                {/* </Link> */}
 
                 <h2 className="text-3xl flex items-center mt-8 text-gray-300 font-[Roboto] font-medium mx-10">
                     <AiOutlineUser className='text-3xl mr-2 text-gray-300'/>
@@ -226,7 +226,7 @@ export default function ClientPage() {
                             </div>}
                         </h3>
                     </div>
-                    <ClientField title={'Уровень подписки'} value={currentClient.mobileSubLevel == '1' ? 'Стандарт' : ''} />
+                    <ClientField title={'Уровень подписки'} value={currentClient.mobileSubLevel == '1' ? 'Премиум' : currentClient.mobileSubLevel == '0' ? 'Нету' : ''} />
                     <ClientField title={'Order ID'} value={currentClient.mobileSubOrderId} />
                     <ClientField title={'Дата подписки Mobile Maximum'} value={currentClient.mobileDate} />
                 </div>

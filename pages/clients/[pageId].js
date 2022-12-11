@@ -90,11 +90,11 @@ export default function Clients() {
                 </div>
                 
                 <div
-                    className={`absolute min-w-100 left-20 right-5 top-0 backdrop-blur-sm z-[12] flex flex-col items-center justify-center min-h-screen ${create ? 'visible' : 'hidden'}`}
+                    className={`absolute min-w-screen right-0 left-0 top-0 backdrop-blur-sm z-20 flex flex-col items-center justify-center min-h-screen ${create ? 'visible' : 'hidden'}`}
                     onClick={(e) => {
                         if (e.target.closest('div.absolute') == e.target) setCreate(false)
                     }}>
-                        <div className="bg-gray-700 pt-8 pb-8 pr-16 pl-16 rounded-3xl justify-center items-center ">
+                        <div className="bg-gray-700 pt-8 pb-8 pr-16 pl-16 rounded-3xl z-80 justify-center items-center ">
                     <form className=" grid gap-4 gap-x-10 grid-cols-2 grid-rows-3" onClick={(e) => {
 
                         e.preventDefault()
@@ -103,43 +103,43 @@ export default function Clients() {
                         <div className="group">
                             <input type="text" value={userLogin} onChange={(e) => {
                                 setUserLogin(e.target.value)
-                            }} className="text-md px-20 rounded-lg border-8  focus:border-gray-300  focus:border-8 block w-full pl-3 bg-gray-600 border-gray-500  text-gray-300 autofill:bg-gray-800" required/>
+                            }} className="text-md px-20 rounded-lg border-8  focus:border-gray-300  focus:border-8 block w-full pl-3 bg-gray-600 border-gray-500  text-gray-300 autofill:bg-gray-800  transition-all duration-300" required/>
                             <label className="ml-2 text-gray-400">Логин</label>
                         </div>
                         <div className="group">
                             <input type="password" value={password} onChange={(e) => {
                                 setPassword(e.target.value)
-                            }} className="text-md px-20 rounded-lg border-8  focus:border-gray-300  focus:border-8 block w-full pl-3 bg-gray-600 border-gray-500  text-gray-300 autofill:bg-gray-800" required/>
+                            }} className="text-md px-20 rounded-lg border-8  focus:border-gray-300  focus:border-8 block w-full pl-3 bg-gray-600 border-gray-500  text-gray-300 autofill:bg-gray-800  transition-all duration-300" required/>
                             <label className="ml-2 text-gray-400">Пароль</label>
                         </div>
                         <div className="group">
                             <input type="text" value={fullName} onChange={(e) => {
                                 setFullName(e.target.value)
-                            }} className="text-md px-20 rounded-lg border-8  focus:border-gray-300  focus:border-8 block w-full pl-3 bg-gray-600 border-gray-500  text-gray-300 autofill:bg-gray-800" required/>
+                            }} className="text-md px-20 rounded-lg border-8  focus:border-gray-300  focus:border-8 block w-full pl-3 bg-gray-600 border-gray-500  text-gray-300 autofill:bg-gray-800  transition-all duration-300" required/>
                             <label className="ml-2 text-gray-400">Имя фамилия</label>
                         </div>
                         <div className="group">
                             <input type="text" value={email} onChange={(e) => {
                                 setEmail(e.target.value)
-                            }} className="text-md px-20 rounded-lg border-8  focus:border-gray-300  focus:border-8 block w-full pl-3 bg-gray-600 border-gray-500  text-gray-300 autofill:bg-gray-800" required/>
+                            }} className="text-md px-20 rounded-lg border-8  focus:border-gray-300  focus:border-8 block w-full pl-3 bg-gray-600 border-gray-500  text-gray-300 autofill:bg-gray-800  transition-all duration-300" required/>
                             <label className="ml-2 text-gray-400">Email</label>
                         </div>
                         <div className="group">
                             <input type="text" value={phone} onChange={(e) => {
                                 setPhone(e.target.value)
-                            }} className="text-md px-20 rounded-lg border-8  focus:border-gray-300  focus:border-8 block w-full pl-3 bg-gray-600 border-gray-500  text-gray-300 autofill:bg-gray-800" required/>
+                            }} className="text-md px-20 rounded-lg border-8  focus:border-gray-300  focus:border-8 block w-full pl-3 bg-gray-600 border-gray-500  text-gray-300 autofill:bg-gray-800  transition-all duration-300" required/>
                             <label className="ml-2 text-gray-400">Phone</label>
                         </div>
                         <div className="group">
                             <input type="text" value={address} onChange={(e) => {
                                 setAddress(e.target.value)
-                            }} className="text-md px-20 rounded-lg border-8  focus:border-gray-300  focus:border-8 block w-full pl-3 bg-gray-600 border-gray-500  text-gray-300 autofill:bg-gray-800" required/>
+                            }} className="text-md px-20 rounded-lg border-8  focus:border-gray-300  focus:border-8 block w-full pl-3 bg-gray-600 border-gray-500  text-gray-300 autofill:bg-gray-800  transition-all duration-300" required/>
                            <label className="ml-2 text-gray-400">Адресс</label>
                         </div>
                         
                     </form>
                     <button onClick={submitCreate}
-                                className="bg-indigo-600   hover:bg-indigo-700 justify-self-center rounded-3xl p-3 text-lg font-medium text-content">Отправить
+                                className="bg-gray-800  hover:bg-gray-900 justify-self-center rounded-3xl p-3 text-lg font-medium text-content transition-all duration-300 ease-in-out">Отправить
                         </button>
                         </div>
 
@@ -148,8 +148,8 @@ export default function Clients() {
                     <div className="flex ">
                     {/* <TextField id="outlinedbasic" value={search} onChange={(e) => setSearch(e.currentTarget.value)}
                                label="Поиск" variant="outlined"  /> */}
-                              <div>
-                               <input type="text" value={search} onChange={(e)=>{setSearch(e.currentTarget.value)}} className="text-md relative  rounded-lg border-8  focus:border-gray-300  focus:border-8 block  pl-3 bg-gray-600 border-gray-500  text-gray-300 autofill:bg-gray-800" required  placeholder="Поиск"/>
+                              <div className="inline-block">
+                               <input type="text" value={search} onChange={(e)=>{setSearch(e.currentTarget.value)}} className="text-md relative  rounded-lg border-8  focus:border-gray-300  focus:border-8 block  pl-3 bg-gray-600 border-gray-500  text-gray-300 autofill:bg-gray-800 transition-all ease-in-out duration-300" required  placeholder="Поиск"/>
                             {/* <label className="ml-2 absolute left-2 top-7 text-gray-400">Поиск</label> */}
                             </div>
                     <div className="p-4 text-2xl cursor-pointer" onClick={() => {
@@ -163,17 +163,18 @@ export default function Clients() {
                     <div>
                     <button onClick={() => {
                         setCreate(!create)
-                    }} className=" bg-gray-600 hover:bg-gray-700 flex items-center rounded-2xl p-2 px-6  text-gray-200">
+                    }} className="group mb-0  bg-gray-600 hover:bg-gray-700 flex items-center rounded-2xl p-2 px-6  text-gray-200">
                         <FaPlus className="text-xl font-semibold mr-4"/>Add <br/>customer
                     </button>
 </div>
-                    <div className={'container  text-gray-200'}>
-                    <button className={'flex items-center rounded-2xl p-4 bg-gray-600 hover:bg-gray-700'} onClick={() => {
+                    <div className={'text-gray-200'}>
+                    <button className={'flex group items-center rounded-2xl p-4 bg-gray-600 hover:bg-gray-700'} onClick={() => {
                         onClickRefresh()
                         dispatch(getPage(pageSize, pageId))
                     }}>
-                        <VscDebugRestart ref={ref} className="text-xl font-bold mr-4 group-hover:animate-refresh_rotate" />
-                        Refresh</button>
+                        <VscDebugRestart ref={ref} className="text-xl font-bold mr-4 group-focus:animate-refresh_rotate" />
+                        Refresh
+                        </button>
                 </div>
                 </div>
                    
