@@ -161,7 +161,8 @@ export default function ClientPage() {
                     </div>
 
                     <div>
-                    <ClientField value={ministraClient?.tariff_plan == "1" ? "Стандарт" : ministraClient?.tariff_plan == "2" ? "Премиум" : "Нету"} title={
+<ClientField value={ministraClient?.tariff_plan == "1" ? "Стандарт" : ministraClient?.tariff_plan == "2" ? "Премиум" : ministraClient?.tariff_plan == "0" ? "Нету" : ""}
+ title={
                         <div className="flex items-center">
                             <RiFundsFill className='mr-2 text-gray-500'></RiFundsFill>
                             Тарифный план:
@@ -226,7 +227,7 @@ export default function ClientPage() {
                             </div>}
                         </h3>
                     </div>
-                    <ClientField title={'Уровень подписки'} value={currentClient.mobileSubLevel == '1' ? 'Стандарт' : ''} />
+                    <ClientField title={'Уровень подписки'} value={currentClient.mobileSubLevel == '1' ? 'Премиум' : currentClient.mobileSubLevel == '0' ? 'Нету' : ''} />
                     <ClientField title={'Order ID'} value={currentClient.mobileSubOrderId} />
                     <ClientField title={'Дата подписки Mobile Maximum'} value={currentClient.mobileDate} />
                 </div>
