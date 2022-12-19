@@ -9,7 +9,7 @@ export default function Home() {
         <div className="justify-center flex">
         <h2 className="text-gray-200 text-4xl mt-5">Главная</h2>
         </div>
-
+{/* aboba */}
         <div className="grid gap-1 grid-rows-3 grid-flow-col mt-20">
         <div className="bg-gray-800 rounded-xl p-5 justify-center items-center text-center mx-10 row-span-4 ">
 <h1 className="text-gray-200 text-lg">Графіки</h1>
