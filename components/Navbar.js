@@ -25,7 +25,7 @@ export default function Navbar() {
                     <div className="rounded-[50%] p-2 bg-gray-600 ">
                         <RiAdminLine className="text-3xl text-gray-200" />
                     </div>
-                    <h2 className={`text-xl ${open ? 'visible ml-4 text-gray-200' : 'hidden'}`}>{admin.login ? admin.login : 'Login first'}</h2>
+                    <h2 className={`text-xl ${open ? 'visible ml-4 text-gray-200' : 'hidden'}`}>{admin.login ? admin.login : 'Не залогинен'}</h2>
                 </div>
 
                 <div onClick={()=>{router.push('/')}} className="flex cursor-pointer mt-8 items-center justify-center">
