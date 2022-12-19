@@ -90,7 +90,7 @@ export default function Clients() {
                 </div>
                 
                 <div
-                    className={`absolute min-w-100 left-20 right-5 top-0 backdrop-blur-sm z-[12] flex flex-col items-center justify-center min-h-screen ${create ? 'visible' : 'hidden'}`}
+                    className={`absolute min-w-screen left-0 right-0 top-0 backdrop-blur-sm z-[12] flex flex-col items-center justify-center min-h-screen ${create ? 'visible' : 'hidden'}`}
                     onClick={(e) => {
                         if (e.target.closest('div.absolute') == e.target) setCreate(false)
                     }}>
@@ -103,43 +103,43 @@ export default function Clients() {
                         <div className="group">
                             <input type="text" value={userLogin} onChange={(e) => {
                                 setUserLogin(e.target.value)
-                            }} className="text-md px-20 rounded-lg border-8  focus:border-gray-300  focus:border-8 block w-full pl-3 bg-gray-600 border-gray-500  text-gray-300 autofill:bg-gray-800" required/>
+                            }} className="text-md px-20 rounded-lg border-8  focus:border-gray-300  focus:border-8 block w-full pl-3 bg-gray-600 border-gray-500  text-gray-300 autofill:bg-gray-800 transition-all duration-300" required/>
                             <label className="ml-2 text-gray-400">Логин</label>
                         </div>
                         <div className="group">
                             <input type="password" value={password} onChange={(e) => {
                                 setPassword(e.target.value)
-                            }} className="text-md px-20 rounded-lg border-8  focus:border-gray-300  focus:border-8 block w-full pl-3 bg-gray-600 border-gray-500  text-gray-300 autofill:bg-gray-800" required/>
+                            }} className="text-md px-20 rounded-lg border-8  focus:border-gray-300  focus:border-8 block w-full pl-3 bg-gray-600 border-gray-500  text-gray-300 autofill:bg-gray-800 transition-all duration-300" required/>
                             <label className="ml-2 text-gray-400">Пароль</label>
                         </div>
                         <div className="group">
                             <input type="text" value={fullName} onChange={(e) => {
                                 setFullName(e.target.value)
-                            }} className="text-md px-20 rounded-lg border-8  focus:border-gray-300  focus:border-8 block w-full pl-3 bg-gray-600 border-gray-500  text-gray-300 autofill:bg-gray-800" required/>
+                            }} className="text-md px-20 rounded-lg border-8  focus:border-gray-300  focus:border-8 block w-full pl-3 bg-gray-600 border-gray-500  text-gray-300 autofill:bg-gray-800 transition-all duration-300" required/>
                             <label className="ml-2 text-gray-400">Имя фамилия</label>
                         </div>
                         <div className="group">
                             <input type="text" value={email} onChange={(e) => {
                                 setEmail(e.target.value)
-                            }} className="text-md px-20 rounded-lg border-8  focus:border-gray-300  focus:border-8 block w-full pl-3 bg-gray-600 border-gray-500  text-gray-300 autofill:bg-gray-800" required/>
+                            }} className="text-md px-20 rounded-lg border-8  focus:border-gray-300  focus:border-8 block w-full pl-3 bg-gray-600 border-gray-500  text-gray-300 autofill:bg-gray-800 transition-all duration-300" required/>
                             <label className="ml-2 text-gray-400">Email</label>
                         </div>
                         <div className="group">
                             <input type="text" value={phone} onChange={(e) => {
                                 setPhone(e.target.value)
-                            }} className="text-md px-20 rounded-lg border-8  focus:border-gray-300  focus:border-8 block w-full pl-3 bg-gray-600 border-gray-500  text-gray-300 autofill:bg-gray-800" required/>
+                            }} className="text-md px-20 rounded-lg border-8  focus:border-gray-300  focus:border-8 block w-full pl-3 bg-gray-600 border-gray-500  text-gray-300 autofill:bg-gray-800 transition-all duration-300" required/>
                             <label className="ml-2 text-gray-400">Phone</label>
                         </div>
                         <div className="group">
                             <input type="text" value={address} onChange={(e) => {
                                 setAddress(e.target.value)
-                            }} className="text-md px-20 rounded-lg border-8  focus:border-gray-300  focus:border-8 block w-full pl-3 bg-gray-600 border-gray-500  text-gray-300 autofill:bg-gray-800" required/>
+                            }} className="text-md px-20 rounded-lg border-8  focus:border-gray-300  focus:border-8 block w-full pl-3 bg-gray-600 border-gray-500  text-gray-300 autofill:bg-gray-800 transition-all duration-300" required/>
                            <label className="ml-2 text-gray-400">Адресс</label>
                         </div>
                         
                     </form>
                     <button onClick={submitCreate}
-                                className="bg-indigo-600   hover:bg-indigo-700 justify-self-center rounded-3xl p-3 text-lg font-medium text-content">Отправить
+                                className="bg-indigo-600 transition-all duration-300  hover:bg-indigo-700 justify-self-center rounded-3xl p-3 text-lg font-medium text-content">Отправить
                         </button>
                         </div>
 
