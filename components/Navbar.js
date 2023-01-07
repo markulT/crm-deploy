@@ -8,6 +8,7 @@ import {AiOutlineHome} from "@react-icons/all-files/ai/AiOutlineHome";
 import {BiLogIn} from "@react-icons/all-files/bi/BiLogIn";
 import {RiAdminLine} from "@react-icons/all-files/ri/RiAdminLine";
 import {useSelector} from "react-redux";
+import {BiTv} from "@react-icons/all-files/bi/BiTv";
 
 
 export default function Navbar() {
@@ -45,6 +46,12 @@ export default function Navbar() {
                         <IoAnalytics className="text-3xl text-gray-200" />
                     </div>
                     <h2 className={`text-xl ${open ? 'visible ml-4 text-gray-200 hover:text-gray-400 transition-all duration-200' : 'hidden'}`}>Analytics</h2>
+                </div>
+                <div onClick={()=>{router.push('/channels/1')}} className="flex cursor-pointer mt-8 items-center justify-center">
+                    <div className="rounded-[50%] p-2 bg-gray-600 hover:bg-gray-700 transition-all duration-200">
+                        <BiTv className="text-3xl text-gray-200" />
+                    </div>
+                    <h2 className={`text-xl ${open ? 'visible ml-4 text-gray-200 hover:text-gray-400 transition-all duration-200' : 'hidden'}`}>Channels</h2>
                 </div>
                 <div onClick={()=>{router.push('/auth/login')}} className="flex cursor-pointer mt-8 items-center justify-center">
                     <div className="rounded-[50%] p-2 bg-gray-600 hover:bg-gray-700 transition-all duration-200">

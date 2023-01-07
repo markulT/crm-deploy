@@ -51,7 +51,7 @@ export default function ClientPage() {
     }
 
     useEffect(() => {
-
+        console.log(admin)
         if (!admin.login) {
             router.push('/auth/login')
         }

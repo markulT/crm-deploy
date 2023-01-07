@@ -37,7 +37,6 @@ export default function Clients() {
     const ref = useRef(null);
   const onClickRefresh = () => {
     const refreshAnimate = ref.current;
-
   };
 
     const [userLogin, setUserLogin] = useState('')

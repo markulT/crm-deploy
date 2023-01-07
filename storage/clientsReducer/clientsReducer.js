@@ -48,7 +48,6 @@ export const addClient = (newClient) => ({type: ADD_CLIENT, newClient})
 export const setPageCount = (pageCount) => ({type: SET_PAGE_COUNT, pageCount})
 
 export const getUsers = () => async (dispatch) => {
-    console.log(process.env.server)
     const response = await api.get(`${serverUrl}/admin/getUsers`, {withCredentials: true})
     dispatch(setClients(response.data.users))
 }
@@ -56,7 +55,6 @@ export const getPage = (pageSize, pageId) => async (dispatch) => {
 
     const response = await api.get(`${serverUrl}/admin/getPage/?pageSize=${pageSize}&pageId=${pageId}`)
     dispatch(setPageCount(response.data.lenght))
-    console.log(response.data)
     dispatch(setClients(response.data.page))
 }
 
