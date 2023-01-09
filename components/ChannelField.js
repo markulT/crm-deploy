@@ -1,15 +1,18 @@
 import {useRouter} from "next/router";
 import {BiTrash} from "@react-icons/all-files/bi/BiTrash";
 import {useDispatch} from "react-redux";
-import {deleteChannel} from "../storage/channelsReducer/channelReducer";
+import {deleteChannel, getPageChannels} from "../storage/channelsReducer/channelReducer";
+import {useState} from "react";
 
 export default function ChannelField({channel}) {
     const router = useRouter()
     const regex = /\.[0-9a-z]+$/i
     const dispatch = useDispatch()
+    const [pageSize, setPageSize] = useState(4)
 
-    function handleDelete() {
-        dispatch(deleteChannel(channel._id))
+    async function handleDelete() {
+        await dispatch(deleteChannel(channel._id))
+        await dispatch(getPageChannels(pageSize, router.query.pageId))
     }
 
     return (
@@ -28,7 +31,7 @@ export default function ChannelField({channel}) {
 
             <div>
             <div className="text-gray-300 text-sm">Описание:</div>
-            <div className="text-gray-200">{channel.title}</div>
+            <div className="text-gray-200">{channel.description}</div>
             </div>
 
             </div>

@@ -1,7 +1,7 @@
 import {useRouter} from "next/router";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useRef, useState} from "react";
-import {getSingleChannel, updateDescription} from "../../storage/channelsReducer/channelReducer";
+import {getSingleChannel, updateDescription, updateImage} from "../../storage/channelsReducer/channelReducer";
 import Link from "next/link";
 import {MdNavigateBefore} from "@react-icons/all-files/md/MdNavigateBefore";
 import {AiOutlineUser} from "@react-icons/all-files/ai/AiOutlineUser";
@@ -30,6 +30,8 @@ export default function ChannelEdit() {
     const [description, setDescription] = useState("")
     const [descEdit, setDescEdit] = useState(false)
     const [imgEdit, setImgEdit] = useState()
+    const [image, setImage] = useState()
+    const [imageEdit, setImageEdit] = useState(false)
     const descRef = useRef(null)
     const regex = /\.[0-9a-z]+$/i
 
@@ -40,14 +42,23 @@ export default function ChannelEdit() {
         dispatch(getSingleChannel(id))
     }, [])
 
-    function submitDescription() {
-        dispatch(updateDescription(channel._id, description))
-        dispatch(getSingleChannel(id))
+    async function submitDescription() {
+        await dispatch(updateDescription(channel._id, description))
+        await dispatch(getSingleChannel(id))
         setDescEdit(!descEdit)
     }
 
-    function handleEditImage() {
-
+    async function handleEditImage() {
+        const formData = new FormData()
+        formData.append("image", image)
+        formData.append("id", channel._id)
+        await dispatch(updateImage(formData))
+        dispatch(getSingleChannel(id))
+    }
+    function handleSetImage(e) {
+        const image = new Image()
+        image.src = e.target.result
+        setImage(e.target.files[0])
     }
 
     return (
@@ -68,10 +79,15 @@ export default function ChannelEdit() {
 
                <div className="flex bg-gray-800 rounded-3xl py-3 mx-10 text-gray-200">
                 <div className="">
-                    <div className="rounded-xl mt-5 ml-5 w-30">
-                    <img src={`data:image/${channel?.imgName?.match(regex)[0].substr(1)};base64,${channel.imgData}`} className="object-cover rounded-lg w-40 h-40"/>
+                    <div className={`rounded-xl mt-5 ml-5 w-30 ${imgEdit ? "hidden" : "visible"}`}>
+                        <img src={`data:image/${channel?.imgName?.match(regex)[0].substr(1)};base64,${channel.imgData}`} className="object-cover rounded-lg w-40 h-40"/>
                     </div>
-                    <button onClick={handleEditImage} className="mx-4 mt-2 text-gray-400 hover:text-gray-500">Изменить</button>
+                    <div className={`${imgEdit ? "visible" : "hidden"}`}>
+                        <input type="file" accept="image/png, image/jpeg, image/webp"  className="text-md px-5 rounded-lg border-8  focus:border-gray-300  focus:border-8 block w-full pl-3 bg-gray-600 border-gray-500  text-gray-400 autofill:bg-gray-800 transition-all duration-300"
+                               onChange={handleSetImage}/>
+                        <button onClick={handleEditImage}>Подтвердить</button>s
+                    </div>
+                    <button onClick={()=>{setImgEdit(!imgEdit)}} className="mx-4 mt-2 text-gray-400 hover:text-gray-500">Изменить</button>
                 </div>
 
 
@@ -119,7 +135,8 @@ export default function ChannelEdit() {
 
                 </div>
 
-
+                <button onClick={()=>{
+                    console.log(channel)}}>Nigga</button>
 
                 </div>
             </div>

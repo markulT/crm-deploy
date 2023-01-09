@@ -32,7 +32,6 @@ export const getChannels = () => async (dispatch) => {
     const response = await api.get(`${serverUrl}/channelManagement/getAll`, {withCredentials: true})
     // const str = btoa(String.fromCharCode.apply(null, new Uint8Array(response.data[0].imgData.data)))
     const channelArr = response.data.map((channel) => {
-        console.log(channel)
         return {...channel, imgData: btoa(String.fromCharCode.apply(null, new Uint8Array(channel.imgData.data)))}
     })
     dispatch(setChannels(channelArr))
@@ -51,7 +50,8 @@ export const getImage = (imgpath) => async (dispatch) => {
 }
 export const getSingleChannel = (id) => async (dispatch) => {
     const response = await api.get(`${serverUrl}/channelManagement/getChannel/${id}`, {withCredentials:true})
-    const channel = {...response.data, imgData:btoa(String.fromCharCode.apply(null, new Uint8Array(response.data.imgData.data)))}
+    // const channel = {...response.data, imgData:btoa(String.fromCharCode.apply(null, new Uint8Array(response.data.imgData.data)))}
+    const channel = {...response.data, imgData:response.data.imgData}
     dispatch(setChannel(channel))
 }
 export const updateDescription = (id, text) => async (dispatch) => {
@@ -59,5 +59,15 @@ export const updateDescription = (id, text) => async (dispatch) => {
 }
 export const deleteChannel = (id) => async (dispatch) => {
     const response = await api.delete(`${serverUrl}/channelManagement/delete/${id}`, {withCredentials:true})
-    console.log(response.data)
+}
+export const getPageChannels = (pageSize, pageId) => async (dispatch) => {
+    const response = await api.get(`${serverUrl}/channelManagement/getPage/?pageSize=${pageSize}&pageId=${pageId}`)
+    const channelArr = response.data.page.map((channel) => {
+        // return {...channel, imgData: btoa(String.fromCharCode.apply(null, new Uint8Array(channel.imgData.data)))}
+        return {...channel, imgData: channel.imgData}
+    })
+    dispatch(setChannels(channelArr))
+}
+export const updateImage = (formData) => async (dispatch) => {
+    const response = await api.put(`${serverUrl}/channelManagement/editImage`, formData, {withCredentials:true})
 }

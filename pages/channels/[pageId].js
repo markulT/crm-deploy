@@ -2,21 +2,20 @@ import {useDispatch, useSelector} from "react-redux";
 import {useRouter} from "next/router";
 import {BiSearch} from "@react-icons/all-files/bi/BiSearch";
 import {FaPlus} from "@react-icons/all-files/fa/FaPlus";
-import {getPage} from "../../storage/clientsReducer/clientsReducer";
 import {VscDebugRestart} from "@react-icons/all-files/vsc/VscDebugRestart";
 import UserField from "../../components/UserField";
 import Link from "next/link";
 import {MdNavigateBefore} from "@react-icons/all-files/md/MdNavigateBefore";
 import {MdNavigateNext} from "@react-icons/all-files/md/MdNavigateNext";
 import {useEffect, useRef, useState} from "react";
-import {createChannel, getChannels, getImage} from "../../storage/channelsReducer/channelReducer";
+import {createChannel, getChannels, getImage, getPageChannels} from "../../storage/channelsReducer/channelReducer";
 import ChannelField from "../../components/ChannelField";
 import {BiImages} from "@react-icons/all-files/bi/BiImages";
 import { MdImageSearch } from "react-icons/md";
 import { VscDesktopDownload } from "react-icons/vsc";
 
 
-export default function Clients() {
+export default function Channels() {
     const dispatch = useDispatch()
     const router = useRouter()
     const loadedImage = useSelector(state=>state.channelReducer.image)
@@ -32,37 +31,35 @@ export default function Clients() {
     const [description, setDescription] = useState('')
     const [image, setImage] = useState()
     const [pageNumber, setPageNumber] = useState(1)
-    const [pageSize, setPageSize] = useState(100)
+    const [pageSize, setPageSize] = useState(4)
 
+    // useEffect(() => {
+    //     setPageNumber(router.query.pageId)
+    //     // dispatch(getChannels())
+    // }, [])
     useEffect(() => {
         setPageNumber(router.query.pageId)
-        dispatch(getChannels())
-    }, [])
-    useEffect(() => {
-        setPageNumber(router.query.pageId)
-        dispatch(getPage(pageSize, pageId))
+        dispatch(getPageChannels(pageSize, router.query.pageId))
     }, [router.query.pageId])
 
     function handleFunction(e) {
         const image = new Image()
         image.src = e.target.result
         image.onload = () => {
-            console.log('aboba')
         }
         const {height, width} = image
-        console.log(`${height} and ${width}`)
-
         setImage(e.target.files[0])
     }
 
 
-    function submitCreate() {
+    async function submitCreate() {
         const formData = new FormData()
         formData.append("name", name)
         formData.append("title", title)
         formData.append("description", description)
         formData.append("image", image)
-        dispatch(createChannel(formData))
+        await dispatch(createChannel(formData))
+        await dispatch(getPageChannels(pageSize, router.query.pageId))
     }
 
     return (
@@ -139,7 +136,7 @@ export default function Clients() {
                             <button className={'flex items-center rounded-2xl p-4 bg-gray-600 hover:bg-gray-700'}
                                     onClick={() => {
                                         onClickRefresh()
-                                        dispatch(getPage(pageSize, pageId))
+                                        dispatch(getPageChannels(pageSize, pageId))
                                     }}>
                                 <VscDebugRestart ref={ref}
                                                  className="text-xl font-bold mr-4 group-hover:animate-refresh_rotate"/>
@@ -178,10 +175,10 @@ export default function Clients() {
                 </div>
 
                 <div className={'flex mt-4'}>
-                    {pageNumber != 1 && <Link href={`/clients/${Number(pageNumber) - 1}`}>
+                    {pageNumber != 1 && <Link href={`/channels/${Number(pageNumber) - 1}`}>
                         <MdNavigateBefore className='text-4xl cursor-pointer active:animate-left_pag_animate'/>
                     </Link>}
-                    <Link href={`/clients/${Number(pageNumber) + 1}`}>
+                    <Link href={`/channels/${Number(pageNumber) + 1}`}>
                         <MdNavigateNext className={'ml-4 text-4xl cursor-pointer active:animate-right_pag_animate'}/>
                     </Link>
                 </div>

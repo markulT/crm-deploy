@@ -29,11 +29,11 @@ export const loginThunk = (login, password) => async (dispatch) => {
         password:password,
     }, {withCredentials:true})
     localStorage.setItem('token', response.data.adminData.accessToken)
-    console.log(response.data)
     dispatch(setUser(response.data.adminData.admin))
 }
 
 export const loginByToken = () => async (dispatch) => {
+    //dsfasdf
     const response = await api.post(`${serverUrl}/admin/loginByToken`,{withCredentials:true})
     dispatch(setUser(response.data))
 }

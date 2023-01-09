@@ -25,7 +25,7 @@ api.interceptors.response.use((config) => {
     if (error.response.status == 401) {
         console.log('refreshing token')
         const response = await axios.post(`${serverUrl}/admin/refresh`,{},{withCredentials:true})
-
+        console.log('GIGANIGGA')
         console.log(response.data)
         localStorage.setItem('token', response.data.adminData.accessToken)
         return api.request(originalRequest)
