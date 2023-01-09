@@ -135,9 +135,6 @@ export default function ChannelEdit() {
 
                 </div>
 
-                <button onClick={()=>{
-                    console.log(channel)}}>Nigga</button>
-
                 </div>
             </div>
         </div>
