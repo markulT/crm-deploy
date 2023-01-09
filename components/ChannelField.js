@@ -13,13 +13,26 @@ export default function ChannelField({channel}) {
     }
 
     return (
-        <div className={"flex items-center basis-1/2"} onClick={()=>{
+        <div className={"flex items-center basis-1/2 relative bg-gray-800 p-2 rounded-lg"} >
+            <img src={`data:image/${channel.imgName.match(regex)[0].substr(1)};base64,${channel.imgData}`} className="w-20 h-20 rounded-lg" onClick={()=>{
+            router.push(`/channelEdit/${channel._id}`)
+        }}/>
+            <div className={"ml-2 grid gap-1 grid-cols-1 grid-rows-2"} onClick={()=>{
             router.push(`/channelEdit/${channel._id}`)
         }}>
-            <div>{channel.name}</div>
-            <div>{channel.title}</div>
-            <img src={`data:image/${channel.imgName.match(regex)[0].substr(1)};base64,${channel.imgData}`}/>
-            <BiTrash className={"text-4xl cursor-pointer"} onClick={handleDelete} />
+            
+            <div>
+            <div className="text-gray-300 text-sm">Название:</div>
+            <div className="text-gray-200">{channel.name}</div>
+            </div>
+
+            <div>
+            <div className="text-gray-300 text-sm">Описание:</div>
+            <div className="text-gray-200">{channel.title}</div>
+            </div>
+
+            </div>
+            <BiTrash className={"text-4xl cursor-pointer absolute right-3 text-gray-300 hover:text-gray-400 transition-all duration-300"} onClick={handleDelete} />
         </div>
     )
 }

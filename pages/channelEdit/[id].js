@@ -18,7 +18,8 @@ import {AiOutlineWifi} from "@react-icons/all-files/ai/AiOutlineWifi";
 import {AiFillCloseCircle} from "@react-icons/all-files/ai/AiFillCloseCircle";
 import {AiFillCheckCircle} from "@react-icons/all-files/ai/AiFillCheckCircle";
 import SubmitButton from "../../components/SubmitButton";
-
+import { AiOutlineLink } from "react-icons/ai";
+import { MdOutlineDescription } from "react-icons/md";
 
 export default function ChannelEdit() {
     const router = useRouter()
@@ -42,6 +43,7 @@ export default function ChannelEdit() {
     function submitDescription() {
         dispatch(updateDescription(channel._id, description))
         dispatch(getSingleChannel(id))
+        setDescEdit(!descEdit)
     }
 
     function handleEditImage() {
@@ -60,42 +62,65 @@ export default function ChannelEdit() {
                     <AiOutlineUser className='text-3xl mr-2 text-gray-300'/>
                     {channel.title}
                 </h2>
-                <div>
-                    <img src={`data:image/${channel?.imgName?.match(regex)[0].substr(1)};base64,${channel.imgData}`}/>
-                    <button onClick={handleEditImage}>Изменить</button>
+
+                <div className={"mt-4 "}>
+               
+
+               <div className="flex bg-gray-800 rounded-3xl py-3 mx-10 text-gray-200">
+                <div className="">
+                    <div className="rounded-xl mt-5 ml-5 w-30">
+                    <img src={`data:image/${channel?.imgName?.match(regex)[0].substr(1)};base64,${channel.imgData}`} className="object-cover rounded-lg w-40 h-40"/>
+                    </div>
+                    <button onClick={handleEditImage} className="mx-4 mt-2 text-gray-400 hover:text-gray-500">Изменить</button>
                 </div>
-                <div className=" bg-gray-800 rounded-3xl p-4 mt-4 mx-10 text-gray-200">
-                    <div className="grid gap-2 grid-cols-2">
+
+
+                <div className="ml-5 self-center">
+                    <div className="">
 
                         <div>
                             <ClientField className="text-gray-200" value={channel.name} title={
                                 <div className="flex items-center">
-                                    <FaRegAddressCard className='mr-2 text-gray-500'/>
+                                    <AiOutlineLink className='mr-2 text-gray-500'/>
                                     Идентификатор канала
                                 </div>
                             }/>
                         </div>
                     </div>
+                    
+                    <div className="rounded-3xl mt-4 pr-40 text-gray-200 col-span-2">
+                    <div>
+                            
+                                <div className="flex items-center text-gray-500 text-xl font-medium">
+                                    <MdOutlineDescription className='mr-2 text-gray-500'/>
+                                    Описание канала
+                                </div>
 
-                </div>
-                <div className="block bg-gray-800 rounded-3xl p-4 mt-4 mx-10 text-gray-200">
-                    <p className={`${descEdit ? "hidden" : "visible"}`}>{channel.description}</p>
-                    <p className={`${descEdit ? "visible" : "hidden"}`}>Введите новое описание:</p>
+                        </div>
+                    <p className={`${descEdit ? "hidden" : "visible"} text-1xl text-gray-400  font=[Roboto] font-medium`}>{channel.description}</p>
+                    <p className={`${descEdit ? "visible" : "hidden"}  text-1xl text-gray-400  font=[Roboto] font-medium`}>Введите новое описание:</p>
                     <textarea ref={descRef}
-                              className={`bg-transparent border-white resize-none w-full ${descEdit ? "visible" : "hidden"}`}
+                              className={`bg-gray-600 rounded-lg p-2 focus:border-indigo-500 resize-none w-full ${descEdit ? "visible" : "hidden"}`}
                               value={description} onChange={(e) => {
                         setDescription(e.target.value)
                     }}/>
-                    <button className={`${descEdit ? "visible" : "hidden"}`} onClick={submitDescription}>Подтвердить
+                    <button className={`${descEdit ? "visible" : "hidden"} bg-icon-bg p-2 rounded-xl`} onClick={submitDescription}>Подтвердить
                     </button>
-                    <button className={"block mt-4 bg-icon-bg p-2 rounded-3xl"} onClick={() => {
+                    <button className={`${!descEdit ? "visible" : "hidden"} block mt-4 bg-icon-bg p-2 rounded-xl`} onClick={() => {
                         setDescEdit(!descEdit)
                     }}>Редактировать
                     </button>
-                    <button onClick={() => {
+                    {/* <button onClick={() => {
                         console.log(channel.imgData)
                     }}>тест
-                    </button>
+                    </button> */}
+                </div>
+                </div>
+
+                </div>
+
+
+
                 </div>
             </div>
         </div>

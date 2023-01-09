@@ -11,6 +11,10 @@ import {MdNavigateNext} from "@react-icons/all-files/md/MdNavigateNext";
 import {useEffect, useRef, useState} from "react";
 import {createChannel, getChannels, getImage} from "../../storage/channelsReducer/channelReducer";
 import ChannelField from "../../components/ChannelField";
+import {BiImages} from "@react-icons/all-files/bi/BiImages";
+import { MdImageSearch } from "react-icons/md";
+import { VscDesktopDownload } from "react-icons/vsc";
+
 
 export default function Clients() {
     const dispatch = useDispatch()
@@ -77,14 +81,14 @@ export default function Clients() {
                     onClick={(e) => {
                         if (e.target.closest('div.absolute') == e.target) setCreate(false)
                     }}>
-                    <div className="bg-gray-700 pt-8 pb-8 pr-16 pl-16 rounded-3xl justify-center items-center ">
-                        <form className=" grid gap-4 gap-x-10 grid-cols-2 grid-rows-3">
+                    <div className="bg-gray-700 pt-8 pb-8 pr-8 pl-8 rounded-3xl justify-center items-center ">
+                        <form className=" grid gap-4 gap-x-10 grid-cols-2 grid-rows-2">
 
                             <div className="group">
                                 <input type="text" value={name} onChange={(e) => {
                                     setName(e.target.value)
                                 }}
-                                       className="text-md px-20 rounded-lg border-8  focus:border-gray-300  focus:border-8 block w-full pl-3 bg-gray-600 border-gray-500  text-gray-300 autofill:bg-gray-800 transition-all duration-300"
+                                       className="text-md px-5 rounded-lg border-8  focus:border-gray-300  focus:border-8 block w-full pl-3 bg-gray-600 border-gray-500  text-gray-300 autofill:bg-gray-800 transition-all duration-300"
                                        required/>
                                 <label className="ml-2 text-gray-400">Идентификатор</label>
                             </div>
@@ -92,7 +96,7 @@ export default function Clients() {
                                 <input type="text" value={title} onChange={(e) => {
                                     setTitle(e.target.value)
                                 }}
-                                       className="text-md px-20 rounded-lg border-8  focus:border-gray-300  focus:border-8 block w-full pl-3 bg-gray-600 border-gray-500  text-gray-300 autofill:bg-gray-800 transition-all duration-300"
+                                       className="text-md px-5 rounded-lg border-8  focus:border-gray-300  focus:border-8 block w-full pl-3 bg-gray-600 border-gray-500  text-gray-300 autofill:bg-gray-800 transition-all duration-300"
                                        required/>
                                 <label className="ml-2 text-gray-400">Заголовок</label>
                             </div>
@@ -100,19 +104,18 @@ export default function Clients() {
                                 <input type="text" value={description} onChange={(e) => {
                                     setDescription(e.target.value)
                                 }}
-                                       className="text-md px-20 rounded-lg border-8  focus:border-gray-300  focus:border-8 block w-full pl-3 bg-gray-600 border-gray-500  text-gray-300 autofill:bg-gray-800 transition-all duration-300"
+                                       className="text-md px-5 rounded-lg border-8  focus:border-gray-300  focus:border-8 block w-full pl-3 bg-gray-600 border-gray-500  text-gray-300 autofill:bg-gray-800 transition-all duration-300"
                                        required/>
                                 <label className="ml-2 text-gray-400">Описание</label>
                             </div>
-
                             <div>
-                                <input type="file" accept="image/png, image/jpeg, image/webp"
+                                <input type="file" accept="image/png, image/jpeg, image/webp"  className="text-md px-5 rounded-lg border-8  focus:border-gray-300  focus:border-8 block w-full pl-3 bg-gray-600 border-gray-500  text-gray-400 autofill:bg-gray-800 transition-all duration-300"
                                        onChange={handleFunction}/>
                             </div>
 
                         </form>
                         <button onClick={submitCreate}
-                                className="bg-indigo-600 transition-all duration-300  hover:bg-indigo-700 justify-self-center rounded-3xl p-3 text-lg font-medium text-content">Отправить
+                                className="bg-indigo-600 transition-all duration-300  hover:bg-indigo-700 justify-self-center rounded-2xl p-3 text-lg font-medium text-content">Добавить
                         </button>
                     </div>
 
@@ -129,7 +132,7 @@ export default function Clients() {
                                 setCreate(!create)
                             }}
                                     className=" bg-gray-600 hover:bg-gray-700 flex items-center rounded-2xl p-2 px-6  text-gray-200">
-                                <FaPlus className="text-xl font-semibold mr-4"/>Add <br/>customer
+                                <FaPlus className="text-xl font-semibold mr-4"/>Добавить <br/>канал
                             </button>
                         </div>
                         <div className={'container  text-gray-200'}>
@@ -143,22 +146,22 @@ export default function Clients() {
                                 Refresh
                             </button>
                         </div>
-                        <div className={'container text-gray-200'}>
+                        {/* <div className={'container text-gray-200'}>
                             <button className={'flex whitespace-nowrap items-center rounded-2xl p-4 bg-gray-600 hover:bg-gray-700'}
                                     onClick={() => {
                                         dispatch(getImage(`Fuhrer_Adolf_Hitler33e52c8d-cd1d-456c-a2c4-2d6a62aafe12.png`))
                                     }}>
-                                <VscDebugRestart ref={ref}
+                                <MdImageSearch ref={ref}
                                                  className="text-xl font-bold mr-4 group-hover:animate-refresh_rotate"/>
                                 Get image
                             </button>
-                        </div>
+                        </div> */}
                         <div className={'container text-gray-200'}>
                             <button className={'flex whitespace-nowrap items-center rounded-2xl p-4 bg-gray-600 hover:bg-gray-700'}
                                     onClick={() => {
                                         dispatch(getChannels())
                                     }}>
-                                <VscDebugRestart ref={ref}
+                                <VscDesktopDownload ref={ref}
                                                  className="text-xl font-bold mr-4 group-hover:animate-refresh_rotate"/>
                                 Get channels
                             </button>
@@ -170,7 +173,7 @@ export default function Clients() {
                 {/*    <img src={`data:image/png;base64,${loadedImage}`} />*/}
                 {/*</div>*/}
 
-                <div className={"mt-4 grid gap-1 gap-x-4 grid-cols-2 grid-rows-1"}>
+                <div className={"mt-4 grid gap-1 gap-x-4 gap-y-4 grid-cols-2 grid-rows-1"}>
                     {channelArr.map(channel=>(<ChannelField channel={channel} />))}
                 </div>
 
