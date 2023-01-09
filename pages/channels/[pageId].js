@@ -171,7 +171,7 @@ export default function Channels() {
                 {/*</div>*/}
 
                 <div className={"mt-4 grid gap-1 gap-x-4 gap-y-4 grid-cols-2 grid-rows-1"}>
-                    {channelArr.map(channel=>(<ChannelField channel={channel} />))}
+                    {channelArr.map(channel=>(<ChannelField key={channel._id} channel={channel} />))}
                 </div>
 
                 <div className={'flex mt-4'}>
