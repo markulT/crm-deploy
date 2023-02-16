@@ -1,7 +1,7 @@
 import * as axios from 'axios'
 
-// export const serverUrl = "https://api-resttv.info"
-export const serverUrl = "http://localhost:8000"
+export const serverUrl = "https://api-resttv.info"
+// export const serverUrl = "http://localhost:8000"
 
 const api = axios.create({
     withCredentials: true,
