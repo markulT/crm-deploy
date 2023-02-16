@@ -48,6 +48,7 @@ export default function Clients() {
     const [pageSize, setPageSize] = useState(8)
     const pageCount = useSelector(state => state.clientsReducer.pageCount)
     const [pageNumber, setPageNumber] = useState(1)
+    const admin = useSelector(state=>state.authReducer)
 
     const submitCreate = async () => {
         await dispatch(createClient(userLogin, password, fullName, email, phone, address))
@@ -60,7 +61,10 @@ export default function Clients() {
         dispatch(getUsers())
     }
 
+
+
     useEffect(() => {
+        console.log(admin)
         setPageNumber(router.query.pageId)
     }, [])
     useEffect(() => {
@@ -178,8 +182,9 @@ export default function Clients() {
                    
                 </div>
                 <div className="mt-4 grid gap-1 gap-x-4 grid-cols-2 grid-rows-1">
-                    {clients.users.map(client=>(<UserField className="bg-gray-800 " client={client} key={client._id} />))}
-
+                    {
+                        clients.users.map(client=>(<UserField className="bg-gray-800 " client={client} key={client._id} />))
+                    }
                 </div>
                 <div className={'flex mt-4'}>
                     {pageNumber != 1 && <Link href={`/clients/${Number(pageNumber) - 1}`}>

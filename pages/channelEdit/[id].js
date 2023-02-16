@@ -20,6 +20,7 @@ import {AiFillCheckCircle} from "@react-icons/all-files/ai/AiFillCheckCircle";
 import SubmitButton from "../../components/SubmitButton";
 import { AiOutlineLink } from "react-icons/ai";
 import { MdOutlineDescription } from "react-icons/md";
+import {setError} from "../../storage/ui/UiReducer";
 
 export default function ChannelEdit() {
     const router = useRouter()
@@ -58,6 +59,11 @@ export default function ChannelEdit() {
     function handleSetImage(e) {
         const image = new Image()
         image.src = e.target.result
+        if (e.target.files[0].size > 90000) {
+            console.log(e.target.files[0].size)
+            dispatch(setError({status:"error", msg:"Максимальный размер файла - 90КБ"}))
+            e.target.value = null
+        }
         setImage(e.target.files[0])
     }
 

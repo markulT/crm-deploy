@@ -1,5 +1,6 @@
 import api, {serverUrl} from "../axios/api";
 import {Router} from "next/router";
+import {setError} from "../ui/UiReducer";
 
 const SET_CLIENTS = "SET_CLIENTS"
 const SET_CLIENT = "SET_CLIENT"
@@ -52,10 +53,14 @@ export const getUsers = () => async (dispatch) => {
     dispatch(setClients(response.data.users))
 }
 export const getPage = (pageSize, pageId) => async (dispatch) => {
-
     const response = await api.get(`${serverUrl}/admin/getPage/?pageSize=${pageSize}&pageId=${pageId}`)
-    dispatch(setPageCount(response.data.lenght))
-    dispatch(setClients(response.data.page))
+    if (response === undefined) {
+        dispatch(setError({msg:"У вас недостаточно прав", status:"error"}))
+    }
+    if (response?.data != null) {
+        dispatch(setPageCount(response.data.lenght))
+        dispatch(setClients(response.data.page))
+    }
 }
 
 export const getUser = (id) => async (dispatch) => {

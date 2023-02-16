@@ -1,5 +1,5 @@
 import {AiOutlineMenu} from "@react-icons/all-files/ai/AiOutlineMenu";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {AiOutlineUser} from "@react-icons/all-files/ai/AiOutlineUser";
 import {useRouter} from "next/router";
 import {GrAnalytics} from "@react-icons/all-files/gr/GrAnalytics";
@@ -17,9 +17,8 @@ export default function Navbar() {
 
     const [open, setOpen] = useState(false)
     const router = useRouter()
-
     return (
-        <div className={`${open ? "w-72" : "w-20"} transition-all duration-300 ease-in-out min-h-full bg-gray-800 relative items-center justify-center`}>
+        <div className={`${open ? "w-72" : "w-20"} z-[999999] transition-all duration-300 ease-in-out min-h-full bg-gray-800 relative items-center justify-center`}>
             <div className="flex flex-col items-center pl-4 pr-4">
             <AiOutlineMenu onClick={()=>{setOpen(!open)}} className={`mt-8 text-4xl cursor-pointer self-center text-gray-200`} />
 

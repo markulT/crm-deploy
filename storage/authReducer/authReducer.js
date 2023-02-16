@@ -5,16 +5,19 @@ const SET_USER = 'SET_USER'
 
 const initialState = {
     login:'',
-    fullName:''
+    fullName:'',
+    role:''
 }
 
 export default function authReducer(state = initialState, action) {
     switch (action.type) {
         case SET_USER:
+            console.log(action.user.role)
             return {
                 ...state,
                 login:action.user.login,
-                fullName: action.user.fullName
+                fullName: action.user.fullName,
+                role:action.user.role
             }
         default:
             return state

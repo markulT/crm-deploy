@@ -5,6 +5,7 @@ import { createWrapper } from "next-redux-wrapper";
 import authReducer from "./authReducer/authReducer";
 import clientsReducer from "./clientsReducer/clientsReducer";
 import channelReducer from "./channelsReducer/channelReducer";
+import UiReducer from "./ui/UiReducer";
 // import rootReducer from "./reducers";
 
 // initial states here
@@ -16,7 +17,8 @@ const middleware = [thunk];
 const reducers = combineReducers({
     authReducer: authReducer,
     clientsReducer:clientsReducer,
-    channelReducer:channelReducer
+    channelReducer:channelReducer,
+    UiReducer:UiReducer
 })
 
 // creating store
