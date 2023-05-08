@@ -70,10 +70,6 @@ export default function ClientPage() {
                     <MdNavigateBefore className='text-4xl mt-8 cursor-pointer rounded-[50%] bg-gray-800 text-gray-300 mx-10'/>
                 </Link>
 
-                <h2 className="text-3xl flex items-center mt-8 text-gray-300 font-[Roboto] font-medium mx-10">
-                    <AiOutlineUser className='text-3xl mr-2 text-gray-300'/>
-                    {currentClient?.login}
-                </h2>
                 <div className=" bg-gray-800 rounded-3xl p-4 mt-4 mx-10 text-gray-200">
                     <div className="grid gap-2 grid-cols-2">
 

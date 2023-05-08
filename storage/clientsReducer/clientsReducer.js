@@ -71,9 +71,8 @@ export const getUser = (id) => async (dispatch) => {
     dispatch(setCurrentMinstraClient(JSON.parse(response.data.clientMinistra)))
     dispatch(setCurrentClient(response.data.user))
 }
-export const createClient = (login, password, fullName, email, phone, address) => async (dispatch) => {
+export const createClient = (password, fullName, email, phone, address) => async (dispatch) => {
     const response = await api.post(`${serverUrl}/admin/createClient`, {
-        login: login,
         password: password,
         fullName: fullName,
         email: email,

@@ -35,11 +35,9 @@ export default function Clients() {
     const [search, setSearch] = useState('')
 
     const ref = useRef(null);
-  const onClickRefresh = () => {
-    const refreshAnimate = ref.current;
-  };
-
-    const [userLogin, setUserLogin] = useState('')
+    const onClickRefresh = () => {
+        const refreshAnimate = ref.current;
+    };
     const [password, setPassword] = useState('')
     const [fullName, setFullName] = useState('')
     const [email, setEmail] = useState('')
@@ -51,7 +49,7 @@ export default function Clients() {
     const admin = useSelector(state=>state.authReducer)
 
     const submitCreate = async () => {
-        await dispatch(createClient(userLogin, password, fullName, email, phone, address))
+        await dispatch(createClient(password, fullName, email, phone, address))
         setCreate(false)
 
     }
@@ -64,7 +62,6 @@ export default function Clients() {
 
 
     useEffect(() => {
-        console.log(admin)
         setPageNumber(router.query.pageId)
     }, [])
     useEffect(() => {
@@ -103,12 +100,6 @@ export default function Clients() {
                         e.preventDefault()
                     }}>
 
-                        <div className="group">
-                            <input type="text" value={userLogin} onChange={(e) => {
-                                setUserLogin(e.target.value)
-                            }} className="text-md px-20 rounded-lg border-8  focus:border-gray-300  focus:border-8 block w-full pl-3 bg-gray-600 border-gray-500  text-gray-300 autofill:bg-gray-800 transition-all duration-300" required/>
-                            <label className="ml-2 text-gray-400">Логин</label>
-                        </div>
                         <div className="group">
                             <input type="password" value={password} onChange={(e) => {
                                 setPassword(e.target.value)
