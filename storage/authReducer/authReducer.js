@@ -15,7 +15,7 @@ export default function authReducer(state = initialState, action) {
             console.log(action.user.role)
             return {
                 ...state,
-                login:action.user.login,
+                email:action.user.email,
                 fullName: action.user.fullName,
                 role:action.user.role
             }

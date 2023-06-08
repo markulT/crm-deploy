@@ -19,14 +19,14 @@ export default function Navbar() {
     const router = useRouter()
     return (
         <div className={`${open ? "w-72" : "w-20"} z-[999999] transition-all duration-300 ease-in-out min-h-full bg-gray-800 relative items-center justify-center`}>
-            <div className="flex flex-col items-center pl-4 pr-4">
+            <div className="flex flex-col justify-center pl-4 pr-4">
             <AiOutlineMenu onClick={()=>{setOpen(!open)}} className={`mt-8 text-4xl cursor-pointer self-center text-gray-200`} />
-
-                <div className="flex mt-8 items-center justify-center">
+            <div className={"flex flex-col justify-center"}>
+                <div className="flex mt-8 items-center justify-center ">
                     <div className="rounded-[50%] p-2 bg-gray-600 ">
                         <RiAdminLine className="text-3xl text-gray-200" />
                     </div>
-                    <h2 className={`text-xl ${open ? 'visible ml-4 text-gray-200' : 'hidden'}`}>{admin.login ? admin.login : 'Не залогинен'}</h2>
+                    <h2 className={`text-xl ${open ? 'visible ml-4 text-gray-200' : 'hidden'}`}>{admin.email ? admin.email : 'Не залогинен'}</h2>
                 </div>
 
                 <div onClick={()=>{router.push('/')}} className="flex cursor-pointer mt-8 items-center justify-center">
@@ -59,6 +59,9 @@ export default function Navbar() {
                     </div>
                     <h2 className={`text-xl ${open ? 'visible ml-4 text-gray-200 hover:text-gray-400 transition-all duration-200' : 'hidden'}`}>Login</h2>
                 </div>
+
+            </div>
+
             </div>
         </div>
     )

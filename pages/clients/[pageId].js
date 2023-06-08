@@ -29,7 +29,7 @@ export default function Clients() {
     const clients = useSelector(state => state.clientsReducer)
     const router = useRouter()
     const {pageId} = router.query
-    
+
 
     const [create, setCreate] = useState(false)
     const [search, setSearch] = useState('')
@@ -49,10 +49,18 @@ export default function Clients() {
     const admin = useSelector(state=>state.authReducer)
 
     const submitCreate = async () => {
-        await dispatch(createClient(password, fullName, email, phone, address))
         setCreate(false)
-
+        await dispatch(createClient(password, fullName, email, phone, address))
+        clearForm()
+        dispatch(getPage(pageSize, pageId))
     }
+    const clearForm = () => {
+        setEmail('');
+        setPassword('');
+        setPhone('');
+        setFullName('');
+        setAddress('');
+    };
 
     const deleteUser = async (id) => {
         await dispatch(deleteClient(id))
@@ -85,10 +93,10 @@ export default function Clients() {
                     <div className="text-center">
                     <h2 className="text-gray-200 text-4xl">Clients</h2>
                     </div>
-                    
-                    
+
+
                 </div>
-                
+
                 <div
                     className={`absolute min-w-screen left-0 right-0 top-0 backdrop-blur-sm z-[12] flex flex-col items-center justify-center min-h-screen ${create ? 'visible' : 'hidden'}`}
                     onClick={(e) => {
@@ -99,12 +107,11 @@ export default function Clients() {
 
                         e.preventDefault()
                     }}>
-
                         <div className="group">
-                            <input type="password" value={password} onChange={(e) => {
-                                setPassword(e.target.value)
+                            <input type="text" value={email} onChange={(e) => {
+                                setEmail(e.target.value)
                             }} className="text-md px-20 rounded-lg border-8  focus:border-gray-300  focus:border-8 block w-full pl-3 bg-gray-600 border-gray-500  text-gray-300 autofill:bg-gray-800 transition-all duration-300" required/>
-                            <label className="ml-2 text-gray-400">Пароль</label>
+                            <label className="ml-2 text-gray-400">Email</label>
                         </div>
                         <div className="group">
                             <input type="text" value={fullName} onChange={(e) => {
@@ -113,10 +120,10 @@ export default function Clients() {
                             <label className="ml-2 text-gray-400">Имя фамилия</label>
                         </div>
                         <div className="group">
-                            <input type="text" value={email} onChange={(e) => {
-                                setEmail(e.target.value)
+                            <input type="password" value={password} onChange={(e) => {
+                                setPassword(e.target.value)
                             }} className="text-md px-20 rounded-lg border-8  focus:border-gray-300  focus:border-8 block w-full pl-3 bg-gray-600 border-gray-500  text-gray-300 autofill:bg-gray-800 transition-all duration-300" required/>
-                            <label className="ml-2 text-gray-400">Email</label>
+                            <label className="ml-2 text-gray-400">Пароль</label>
                         </div>
                         <div className="group">
                             <input type="text" value={phone} onChange={(e) => {
@@ -124,17 +131,19 @@ export default function Clients() {
                             }} className="text-md px-20 rounded-lg border-8  focus:border-gray-300  focus:border-8 block w-full pl-3 bg-gray-600 border-gray-500  text-gray-300 autofill:bg-gray-800 transition-all duration-300" required/>
                             <label className="ml-2 text-gray-400">Phone</label>
                         </div>
-                        <div className="group">
+                        <div className="group col-span-2">
                             <input type="text" value={address} onChange={(e) => {
                                 setAddress(e.target.value)
                             }} className="text-md px-20 rounded-lg border-8  focus:border-gray-300  focus:border-8 block w-full pl-3 bg-gray-600 border-gray-500  text-gray-300 autofill:bg-gray-800 transition-all duration-300" required/>
                            <label className="ml-2 text-gray-400">Адресс</label>
                         </div>
-                        
+
                     </form>
-                    <button onClick={submitCreate}
-                                className="bg-indigo-600 transition-all duration-300  hover:bg-indigo-700 justify-self-center rounded-3xl p-3 text-lg font-medium text-content">Отправить
-                        </button>
+                            <div className={"flex justify-center"}>
+                                <button onClick={submitCreate}
+                                        className="bg-violetButton transition-all duration-500 hover:scale-105 hover:bg-violetButtonDark justify-self-center rounded-xl w-2/3 py-3 text-lg font-medium text-content">Отправить
+                                </button>
+                            </div>
                         </div>
 
                 </div>
@@ -150,9 +159,9 @@ export default function Clients() {
                         findUsers(search)
                     }}>
                         <BiSearch/>
-                        
+
                     </div>
-                    </div> 
+                    </div>
                     <div className="flex items-center space-x-6">
                     <div>
                     <button onClick={() => {
@@ -168,23 +177,27 @@ export default function Clients() {
                     }}>
                         <VscDebugRestart ref={ref} className="text-xl font-bold mr-4 group-hover:animate-refresh_rotate" />
                         Refresh</button>
+                    </div>
                 </div>
-                </div>
-                   
+
                 </div>
                 <div className="mt-4 grid gap-1 gap-x-4 grid-cols-2 grid-rows-1">
                     {
                         clients.users.map(client=>(<UserField className="bg-gray-800 " client={client} key={client._id} />))
                     }
                 </div>
-                <div className={'flex mt-4'}>
-                    {pageNumber != 1 && <Link href={`/clients/${Number(pageNumber) - 1}`}>
-                        <MdNavigateBefore className='text-4xl cursor-pointer active:animate-left_pag_animate'/>
-                    </Link>}
+                <div className={'flex mt-4 text-center items-center justify-center'}>
+                    {pageNumber != 1 && (
+                        <Link href={`/clients/${Number(pageNumber) - 1}`}>
+                            <MdNavigateBefore className='text-4xl cursor-pointer active:animate-left_pag_animate'/>
+                        </Link>
+                    )}
+                    <p className="text-white text-2xl text-center">{pageId}</p>
                     <Link href={`/clients/${Number(pageNumber) + 1}`}>
-                        <MdNavigateNext className={'ml-4 text-4xl cursor-pointer active:animate-right_pag_animate'} />
+                        <MdNavigateNext className='text-4xl cursor-pointer active:animate-right_pag_animate' />
                     </Link>
                 </div>
+
             </div>
         </div>
     )

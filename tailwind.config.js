@@ -8,6 +8,10 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        'violetButton': '#5D41DE',
+        'violetButtonDark': '#4F3AAE',
+        'redButton': '#FF2849',
+        'greenButton': '#30C04F',
         'dead_violet': '#9988CC',
         'nav_black': "#000500",
         "grad_to":"#537895",
@@ -21,7 +25,7 @@ module.exports = {
         "content":"#EBEBEB",
         "content-sec":"#C0C0C0",
         "wild-orange":"#FF6700"
-        
+
       },
       keyframes: {
         right_pag: {

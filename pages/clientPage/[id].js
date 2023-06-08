@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {
     cancelMinistraSub,
-    cancelsub,
+    cancelsub, getPage,
     getUser,
     setCurrentClient,
     setCurrentMinstraClient
@@ -28,7 +28,7 @@ import {FiMail} from "@react-icons/all-files/fi/FiMail";
 import {AiOutlineWifi} from "@react-icons/all-files/ai/AiOutlineWifi";
 import {AiFillPhone} from "@react-icons/all-files/ai/AiFillPhone";
 import SubmitButton from "../../components/SubmitButton";
-
+import {VscDebugRestart} from "@react-icons/all-files/vsc/VscDebugRestart";
 
 
 export default function ClientPage() {
@@ -51,164 +51,182 @@ export default function ClientPage() {
     }
 
     useEffect(() => {
+
+        console.log(ministraClient)
         console.log(admin)
-        if (!admin.login) {
+        if (!admin.email) {
             router.push('/auth/login')
         }
 
         dispatch(getUser(id))
+            console.log(dispatch(getUser(id)))
         return () => {
             dispatch(setCurrentClient({}))
             dispatch(setCurrentMinstraClient({}))
         }
-    }, [])
+
+    },
+        [])
 
     return (
         <div className="min-w-screen min-h-screen flex-1 bg-gradient-to-t from-gray-700 to-gray-600">
             <div className="container mx-auto text-gray-200 min-h-screen ">
                 <Link href={'/clients/1'}>
-                    <MdNavigateBefore className='text-4xl mt-8 cursor-pointer rounded-[50%] bg-gray-800 text-gray-300 mx-10'/>
+                    <MdNavigateBefore
+                        className='text-4xl mt-8 cursor-pointer rounded-[50%] bg-gray-800 text-gray-300 mx-10'/>
                 </Link>
 
-                <div className=" bg-gray-800 rounded-3xl p-4 mt-4 mx-10 text-gray-200">
+                <div className="relative bg-gray-800 rounded-3xl p-4 mt-4 mx-10 text-gray-200">
                     <div className="grid gap-2 grid-cols-2">
 
-                    <div>
-                    <ClientField className="text-gray-200" value={currentClient?.fullName} title={
-                        <div className="flex items-center">
-                            <FaRegAddressCard className='mr-2 text-gray-500'/>
-                            Full Name:
+                        <div>
+                            <ClientField className="text-gray-200" value={currentClient?.fullName} title={
+                                <div className="flex items-center">
+                                    <FaRegAddressCard className='mr-2 text-gray-500'/>
+                                    Full Name:
+                                </div>
+                            }/>
                         </div>
-                    }/>
-                    </div>
 
-                    <div>
-                    <ClientField value={currentClient?.acqId ? currentClient?.acqId : "Нету" } title={
-                        <div className="flex items-center">
-                            <AiOutlineCode className='mr-2 text-gray-500'></AiOutlineCode>
-                            ID покупателя:
+                        <div>
+                            <ClientField value={currentClient?.acqId ? currentClient?.acqId : "Нету"} title={
+                                <div className="flex items-center">
+                                    <AiOutlineCode className='mr-2 text-gray-500'></AiOutlineCode>
+                                    ID покупателя:
+                                </div>
+                            }/>
                         </div>
-                    }/>
-                    </div>
 
-                    <div>
-                    <ClientField value={currentClient?.orderId ? currentClient.orderId : "Нету"} title={
-                        <div className="flex items-center">
-                            <AiOutlineShoppingCart className='mr-2 text-gray-500'></AiOutlineShoppingCart>
-                            Order ID:
+                        <div>
+                            <ClientField value={currentClient?.orderId ? currentClient.orderId : "Нету"} title={
+                                <div className="flex items-center">
+                                    <AiOutlineShoppingCart className='mr-2 text-gray-500'></AiOutlineShoppingCart>
+                                    Order ID:
+                                </div>
+                            }/>
                         </div>
-                    }/>
-                    </div>
 
-                    <div>
-                    <ClientField value={currentClient?.address} title={
-                        <div className="flex items-center">
-                            <BiHomeAlt className='mr-2 text-gray-500'></BiHomeAlt>
-                            Address:
+                        <div>
+                            <ClientField value={currentClient?.address} title={
+                                <div className="flex items-center">
+                                    <BiHomeAlt className='mr-2 text-gray-500'></BiHomeAlt>
+                                    Address:
+                                </div>
+                            }/>
                         </div>
-                    }/>
-                    </div>
 
-                    <div>
-                    <ClientField value={currentClient?.phone} title={
-                        <div className="flex items-center">
-                            <AiFillPhone className={'mr-2 text-gray-500'} />
-                            Номер телефона:
+                        <div>
+                            <ClientField value={currentClient?.phone} title={
+                                <div className="flex items-center">
+                                    <AiFillPhone className={'mr-2 text-gray-500'}/>
+                                    Номер телефона:
+                                </div>
+                            }/>
                         </div>
-                    }/>
-                    </div>
 
-                    <div>
-                    <ClientField value={currentClient?.signDate} title={
-                        <div className="flex items-center">
-                            <AiFillPhone className={'mr-2 text-gray-500'} />
-                            Дата регистрации:
+                        <div>
+                            <ClientField value={currentClient?.signDate} title={
+                                <div className="flex items-center">
+                                    <AiFillPhone className={'mr-2 text-gray-500'}/>
+                                    Дата регистрации:
+                                </div>
+                            }/>
                         </div>
-                    }/>
-                    </div>
 
-                    <div>
-                    <div className="basis-1/2">
-                        <h3 className="text-gray-500 text-xl font-medium flex items-center">
-                            <FiMail className={'mr-2'} />
-                            Email</h3>
-                        <h3 className="text-2xl text-gray-400 font=[Roboto] font-medium">{currentClient?.email}</h3>
-                    </div>
-                    </div>
-
-                    <div>
-                    {currentClient?.dealer ? <div className="basis-1/2">
-                        <h3 className="text-gray-600 text-xl font-medium">Dealer:</h3>
-                        <h3 className="text-2xl text-gray-400 font=[Roboto] font-medium">{currentClient?.dealer}</h3>
-                    </div> : <div className="basis-1/2">
-                        <h3 className="text-gray-500 text-xl font-medium">Dealer:</h3>
-                        <h3 className="text-2xl text-gray-400 font=[Roboto] font-medium">Без дилера</h3>
-                    </div>}
-                    </div>
-
-                    <div>
-                    <div className="basis-1/2">
-                        <h3 className="text-gray-500 text-xl font-medium flex items-center">
-                            <GiAerialSignal className='mr-2 text-gray-400'/>
-                            Mac Address :
-                        </h3>
-                        <h3 className="text-2xl text-gray-400 font=[Roboto] font-medium">{ministraClient?.stb_mac ? ministraClient.stb_mac : 'Не установлен'}</h3>
-                    </div>
-                    </div>
-
-                    <div>
-<ClientField value={ministraClient?.tariff_plan == "1" ? "Стандарт" : ministraClient?.tariff_plan == "2" ? "Премиум" : ministraClient?.tariff_plan == "0" ? "Нету" : ""}
- title={
-                        <div className="flex items-center">
-                            <RiFundsFill className='mr-2 text-gray-500'></RiFundsFill>
-                            Тарифный план:
-                        </div>
-                    }/>
-                    </div>
-
-                    <div>
-                    <ClientField value={ministraClient?.ministraDate ? ministraClient?.ministraDate : "Неизвестно" } title={
-                        <div className="flex items-center">
-                            <RiFundsFill className='mr-2 text-gray-500'></RiFundsFill>
-                            Дата покупки:
-                        </div>
-                    }/>
-                    </div>
-
-                    <div>
-                    <ClientField value={ministraClient?.ip} title={'IP:'}/>
-                    </div>
-
-                    <div>
-                    <div className="basis-1/2">
-                        <h3 className="text-gray-500 text-xl font-medium flex items-center">
-                            <AiOutlineWifi className={'mr-2 text-gray-500'} />
-                            Status
-                        </h3>
-                        <h3 className="text-2xl text-gray-400 font=[Roboto] font-medium">{ministraClient?.online == '0' ?
-                            <div className='flex items-center'>
-                                <AiFillCloseCircle className='text-xl inline text-red-600 mr-2'/>
-                                <p>Offline</p>
+                        <div>
+                            <div className="basis-1/2">
+                                <h3 className="text-gray-500 text-xl font-medium flex items-center">
+                                    <FiMail className={'mr-2'}/>
+                                    Email</h3>
+                                <h3 className="text-2xl text-gray-400 font=[Roboto] font-medium">{currentClient?.email}</h3>
                             </div>
-                            :
-                            <div className='flex items-center'>
-                                <AiFillCheckCircle className='text-xl inline text-green-500 mr-2'/>
-                                <p>Online</p>
-                            </div>}</h3>
+                        </div>
+
+                        <div>
+                            {currentClient?.dealer ? <div className="basis-1/2">
+                                <h3 className="text-gray-600 text-xl font-medium">Dealer:</h3>
+                                <h3 className="text-2xl text-gray-400 font=[Roboto] font-medium">{currentClient?.dealer}</h3>
+                            </div> : <div className="basis-1/2">
+                                <h3 className="text-gray-500 text-xl font-medium">Dealer:</h3>
+                                <h3 className="text-2xl text-gray-400 font=[Roboto] font-medium">Без дилера</h3>
+                            </div>}
+                        </div>
+
+                        <div>
+                            <div className="basis-1/2">
+                                <h3 className="text-gray-500 text-xl font-medium flex items-center">
+                                    <GiAerialSignal className='mr-2 text-gray-400'/>
+                                    Mac Address :
+                                </h3>
+                                <h3 className="text-2xl text-gray-400 font=[Roboto] font-medium">{ministraClient?.stb_mac ? ministraClient.stb_mac : 'Не установлен'}</h3>
                             </div>
+                        </div>
+
+                        <div>
+                            <ClientField
+                                value={ministraClient?.tariff_plan === "1" ? "Стандарт/Минимум" : ministraClient?.tariff_plan === "2" ? "Премиум" : ministraClient?.tariff_plan === "0" ? "Нету" : "Нету"}
+                                title={
+                                    <div className="flex items-center">
+                                        <RiFundsFill className='mr-2 text-gray-500'></RiFundsFill>
+                                        Тарифный план:
+                                    </div>
+                                }/>
+                        </div>
+
+                        <div>
+                            <ClientField
+                                value={ministraClient?.ministraDate ? ministraClient?.ministraDate : "Неизвестно"}
+                                title={
+                                    <div className="flex items-center">
+                                        <RiFundsFill className='mr-2 text-gray-500'></RiFundsFill>
+                                        Дата покупки:
+                                    </div>
+                                }/>
+                        </div>
+
+                        <div>
+                            <ClientField value={ministraClient?.ip} title={'IP:'}/>
+                        </div>
+
+                        <div>
+                            <div className="basis-1/2">
+                                <h3 className="text-gray-500 text-xl font-medium flex items-center">
+                                    <AiOutlineWifi className={'mr-2 text-gray-500'}/>
+                                    Status
+                                </h3>
+                                <h3 className="text-2xl text-gray-400 font=[Roboto] font-medium">{ministraClient?.online === '0' ?
+                                    <div className='flex items-center'>
+                                        <AiFillCloseCircle className='text-xl inline text-red-600 mr-2'/>
+                                        <p>Offline</p>
+                                    </div>
+                                    :
+                                    <div className='flex items-center'>
+                                        <AiFillCheckCircle className='text-xl inline text-green-500 mr-2'/>
+                                        <p>Online</p>
+                                    </div>}</h3>
                             </div>
+                        </div>
+                        <div className={'text-gray-200 absolute right-4 bottom-4'}>
+                            <button className={'flex items-center rounded-xl p-4 px-8 bg-gray-600 hover:bg-gray-700'} onClick={() => {
+                                dispatch(getUser(id))
+                            }}>
+                                <VscDebugRestart className=" text-xl font-bold mr-4 group-hover:animate-refresh_rotate" />
+                                Refresh</button>
+                        </div>
                     </div>
 
                 </div>
-                <SubmitButton callback={()=>{
+                {ministraClient?.tariff_plan === "1" || ministraClient?.tariff_plan === "2" ?
+                <SubmitButton callback={() => {
                     handleMinistraSub(currentClient._id)
-                }} />
+                }}/>
+                    : ""}
                 <h3 className={'text-3xl mt-4 mx-10'}>Подписка Mobile</h3>
                 <div className={`flex flex-wrap w-100 bg-gray-800 rounded-3xl p-4 mt-4 mx-10`}>
                     <div className="basis-1/2">
                         <h3 className="text-gray-500 text-xl font-medium flex items-center">
 
-                            <AiOutlineWifi className={'mr-2'} />
+                            <AiOutlineWifi className={'mr-2'}/>
                             Статус подписки
                         </h3>
                         <h3 className="text-2xl text-gray-400 font=[Roboto] font-medium">{currentClient.mobileSubExists ?
@@ -223,13 +241,16 @@ export default function ClientPage() {
                             </div>}
                         </h3>
                     </div>
-                    <ClientField title={'Уровень подписки'} value={currentClient.mobileSubLevel == '1' ? 'Премиум' : currentClient.mobileSubLevel == '0' ? 'Нету' : ''} />
-                    <ClientField title={'Order ID'} value={currentClient.mobileSubOrderId} />
-                    <ClientField title={'Дата подписки Mobile Maximum'} value={currentClient.mobileDate} />
+                    <ClientField title={'Есть подписка?'}
+                                 value={currentClient.mobileSubLevel === 1 ? 'Есть' : currentClient.mobileSubLevel === 0 ? 'Нету' : 'Нету'}/>
+                    <ClientField title={'Order ID'} value={currentClient.mobileSubOrderId}/>
+                    <ClientField title={'Дата подписки Mobile Maximum'} value={currentClient.mobileDate}/>
                 </div>
-                <SubmitButton callback={()=>{
+                {currentClient.mobileSubLevel === 1 ?
+                    <SubmitButton callback={() => {
                     handleCancelSub(currentClient._id)
-                }} />
+                }}/>
+                    : ""}
             </div>
         </div>
     )
