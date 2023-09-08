@@ -10,7 +10,7 @@ export default function SubmitButton({callback}) {
             <button onClick={() => {
                 setAreYouSure(!areYouSure)
                 // handleCancelSub(currentClient._id)
-            }} className={'bg-red-600 hover:bg-red-700 rounded-3xl p-4 ml-10 mt-5 mb-5'}>Отменить подписку
+            }} className={'bg-button font-primary text-white rounded-3xl p-4'}>Отменить подписку
             </button>
             {/* <button onClick={() => {
                     console.log(currentClient)

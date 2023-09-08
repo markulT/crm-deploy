@@ -84,7 +84,7 @@ export const deleteClient = (id) => async (dispatch) => {
     const response = await api.delete(`${serverUrl}/admin/deleteClient/${id}`, {withCredentials: true})
 }
 export const findUsersRegex = (searchQuery, pageId) => async (dispatch) => {
-    const regex = searchQuery.split(' ').join('+')
+    const regex = searchQuery.split(' ').join('+').toLowerCase()
     console.log(regex)
     const response = await api.get(`${serverUrl}/admin/findClient/?pageSize=1&pageId=${pageId}&regex=${regex}`)
     console.log(response.data.users)

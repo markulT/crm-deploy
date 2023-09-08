@@ -5,52 +5,77 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx}",
     "./comps/**/*.{js,ts,jsx,tsx}"
   ],
+  daisyui: {
+    themes: [
+      {
+        whiteSoft: {
+
+          "primary": "#23324D",
+
+          "secondary": "#d926a9",
+
+          "accent": "#1fb2a6",
+
+          "neutral": "#2a323c",
+
+          "info": "#23324D",
+
+          "success": "#36d399",
+
+          "warning": "#fbbd23",
+
+          "error": "#f87272",
+        },
+      },
+    ],
+  },
   theme: {
+    screens: {
+      'xs': '440px',
+      // => @media (min-width: 440px) { ... }
+      'sm': '640px',
+      // => @media (min-width: 640px) { ... }
+
+      'md': '768px',
+      // => @media (min-width: 768px) { ... }
+
+      'lg': '1024px',
+      // => @media (min-width: 1024px) { ... }
+
+      'xl': '1280px',
+      // => @media (min-width: 1280px) { ... }
+
+      '2xl': '1536px',
+      // => @media (min-width: 1536px) { ... }
+    },
+    colors: {
+      transparent: 'transparent',
+      current: 'currentColor',
+      'active': '#4880FF',
+      'button': '#ff8743',
+      'error': '#fd5454',
+      'warning': '#fcbe2d',
+      'success': '#00b69b',
+      'primary-text': '#202224',
+      'secondary-text': '#606060',
+      'disabled-text': '#a6a6a6',
+      'outline': '#F1F4F9',
+      'white': '#ffffff'
+    },
+
     extend: {
-      colors: {
-        'violetButton': '#5D41DE',
-        'violetButtonDark': '#4F3AAE',
-        'redButton': '#FF2849',
-        'greenButton': '#30C04F',
-        'dead_violet': '#9988CC',
-        'nav_black': "#000500",
-        "grad_to":"#537895",
-        "grad_from":'#09203F',
-        'text-gray': '#868686',
-        "grad_to_dark": '#2e3234',
-        "grad_from_dark": '#0944a2',
-        "light-white": "rgba(255,255,255,0.17)",
-        "navbar": "#3A6EA5",
-        "icon-bg":"#004E98",
-        "content":"#EBEBEB",
-        "content-sec":"#C0C0C0",
-        "wild-orange":"#FF6700"
-
+      fontFamily:{
+        'primary': ['Nunito Sans']
       },
-      keyframes: {
-        right_pag: {
-          '0%': { transform: 'translate(0px, 0px)' },
-          '50%': { transform: 'translate(70px, 0px)' },
-          '100%': { transform: 'translate(0px, 0px)' },
+      backgroundImage: {
+        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+        'gradient-conic':
+            'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
-      left_pag: {
-        '0%': { transform: 'translate(0px, 0px)' },
-        '50%': { transform: 'translate(-70px, 0px)' },
-        '100%': { transform: 'translate(0px, 0px)' },
-    },
-     refresh: {
-'0%': {transform: 'rotate(0deg)'},
-'100%': {transform: 'rotate(-360deg)'}
-     },
-    },
-      animation: {
-        'right_pag_animate': 'right_pag 1s ease-in-out',
-        'left_pag_animate': 'left_pag 1s ease-in-out',
-        'refresh_rotate': 'refresh 1s ease-in-out'
-
-      }
-
     },
   },
-  plugins: [],
+  plugins: [
+    require("@tailwindcss/typography"),
+    require("daisyui")
+  ],
 }
