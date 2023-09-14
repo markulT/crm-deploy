@@ -10,9 +10,9 @@ module.exports = {
       {
         whiteSoft: {
 
-          "primary": "#23324D",
+          "primary": "#4880FF",
 
-          "secondary": "#d926a9",
+          "secondary": "#ff8743",
 
           "accent": "#1fb2a6",
 
@@ -56,6 +56,7 @@ module.exports = {
       'error': '#fd5454',
       'warning': '#fcbe2d',
       'success': '#00b69b',
+      'success-dark': '#008b78',
       'primary-text': '#202224',
       'secondary-text': '#606060',
       'disabled-text': '#a6a6a6',

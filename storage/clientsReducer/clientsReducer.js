@@ -50,10 +50,57 @@ export const setPageCount = (pageCount) => ({type: SET_PAGE_COUNT, pageCount})
 
 export const getUsers = () => async (dispatch) => {
     const response = await api.get(`${serverUrl}/admin/getUsers`, {withCredentials: true})
+    console.log(response.data.users)
     dispatch(setClients(response.data.users))
 }
+
+export const getUsersBy = (param) => async () => {
+    const response = await api.get(`${serverUrl}/analytics/getChartBy?${param}`, {withCredentials: true})
+    return response.data.count
+}
+
+export const getGainBy = (param) => async () => {
+    const response = await api.get(`${serverUrl}/analytics/getGainBy?${param}`, {withCredentials: true})
+    return response.data.count
+}
+
+
+
+const  generateRandomRange = (arrayLength , gap) => {
+    if (arrayLength < gap) {
+        throw new Error("Array length must be greater than or equal to the gap.");
+    }
+
+    const start = Math.floor(Math.random() * (arrayLength - gap + 1));
+    const end = start + gap;
+
+    return [start, end];
+}
+
+export const getRandomUsers = (gap) => async (dispatch) => {
+    const response = await api.get(`${serverUrl}/admin/getUsers`, {withCredentials: true})
+
+    const [start, end] = generateRandomRange(response.data.users.length, gap);
+
+    dispatch(setClients(response.data.users.slice(start, end)))
+}
+
 export const getPage = (pageSize, pageId) => async (dispatch) => {
     const response = await api.get(`${serverUrl}/admin/getPage/?pageSize=${pageSize}&pageId=${pageId}`)
+    if (response === undefined) {
+        dispatch(setError({msg:"У вас недостаточно прав", status:"error"}))
+    }
+    if (response?.data != null) {
+        dispatch(setPageCount(response.data.lenght))
+        dispatch(setClients(response.data.page))
+    }
+}
+
+export const getPageBy = (pageSize, pageId, filters) => async (dispatch) => {
+
+    console.log(filters)
+    console.log(`${serverUrl}/admin/getPageBy/?pageSize=${pageSize}&pageId=${pageId}${filters}`)
+    const response = await api.get(`${serverUrl}/admin/getPageBy/?pageSize=${pageSize}&pageId=${pageId}&${filters}`)
     if (response === undefined) {
         dispatch(setError({msg:"У вас недостаточно прав", status:"error"}))
     }
@@ -79,7 +126,29 @@ export const createClient = (password, fullName, email, phone, address) => async
         phone: phone,
         address: address
     }, {withCredentials: true})
+    console.log( "user")
+    console.log( response.data.user)
+    return response.data.user
 }
+
+export const sendMails = ({emailArray, title, paragraph}) => async (dispatch) => {
+    console.log(emailArray)
+    console.log(title)
+    console.log(paragraph)
+    const response = await api.post(`${serverUrl}/admin/sendTestEmail`, {
+        emails: emailArray,
+        title: title,
+        paragraph: paragraph,
+    }, {withCredentials: true})
+    console.log(response)
+}
+
+export const getAllActivatedEmails = () => async (dispatch) => {
+    const response = await api.get(`${serverUrl}/admin/getUsersBy?activated`, {withCredentials: true})
+    return response
+}
+
+
 export const deleteClient = (id) => async (dispatch) => {
     const response = await api.delete(`${serverUrl}/admin/deleteClient/${id}`, {withCredentials: true})
 }

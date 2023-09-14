@@ -36,7 +36,6 @@ export const loginThunk = (login, password) => async (dispatch) => {
 }
 
 export const loginByToken = () => async (dispatch) => {
-    //dsfasdf
     const response = await api.post(`${serverUrl}/admin/loginByToken`,{withCredentials:true})
     dispatch(setUser(response.data))
 }

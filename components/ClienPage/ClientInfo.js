@@ -12,9 +12,9 @@ export default function ClientInfo() {
     const router = useRouter()
     const currentClient = useSelector(state => state.clientsReducer.currentClient)
     return (
-        <section className={"bg-white w-full p-4 rounded-xl col-span-3"}>
+        <section className={"bg-white w-full p-4 rounded-xl md:col-span-3"}>
             <h2 className={"text-primary-text font-semibold text-3xl"}>Информация о клиенте</h2>
-            <div className={"grid grid-cols-2 gap-8 mt-8"}>
+            <div className={"grid md:grid-cols-2 grid-cols-1 gap-8 mt-8"}>
                 <div>
                     <ClientField value={currentClient?.acqId ? currentClient?.acqId : "Нету"} title={
                         <div className="flex items-center">
@@ -36,7 +36,7 @@ export default function ClientInfo() {
                         <h3 className="text-gray-500 text-xl font-medium flex items-center">
                             <FiMail className={'mr-2'}/>
                             Email</h3>
-                        <h3 className="text-2xl text-gray-400 font=[Roboto] font-medium">{currentClient?.email}</h3>
+                        <h3 className="text-2xl text-gray-400 font-medium truncate">{currentClient?.email}</h3>
                     </div>
                 </div>
                 <div>

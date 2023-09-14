@@ -5,16 +5,17 @@ import {useState} from "react";
 import {useDispatch} from "react-redux";
 import {deleteClient, getPage, getUsers} from "../../storage/clientsReducer/clientsReducer";
 import {useRouter} from "next/router";
+import {RxCheckCircled, RxCrossCircled} from "react-icons/rx";
 
 export default function UserField({client}) {
     const [submitActive, setSubmitActive] = useState(false)
 
     const dispatch = useDispatch()
     const router = useRouter()
-    const { pageId } = router.query;
+    const {pageId} = router.query;
     const deleteUser = async (id) => {
         await dispatch(deleteClient(id))
-        dispatch(getPage(8, pageId))
+        dispatch(getPage(12, pageId))
     }
 
     return (
@@ -85,16 +86,55 @@ export default function UserField({client}) {
         //     </div>
         // </div>
 
-            <div className={"my-4"}>
-                <div className="grid grid-cols-3 text-primary-text">
-                    <p className={"cursor-pointer"} onClick={() => router.push(`/clientPage/${client._id}`)}>{client.email}</p>
-                    <p className={"cursor-pointer"} onClick={() => router.push(`/clientPage/${client._id}`)}>{client.fullName}</p>
-                    <p className={"cursor-pointer"} onClick={() => router.push(`/clientPage/${client._id}`)}>{client.phone}</p>
+        <div className={"relative my-4"}>
+            <div className="grid grid-cols-5 text-primary-text">
+                <p className={"cursor-pointer truncate"}
+                   onClick={() => router.push(`/clientPage/${client._id}`)}>{client.email}</p>
+                <p className={"cursor-pointer truncate"}
+                   onClick={() => router.push(`/clientPage/${client._id}`)}>{client.fullName}</p>
+                <p className={"cursor-pointer truncate"}
+                   onClick={() => router.push(`/clientPage/${client._id}`)}>{client.phone}</p>
+                {client.isActivated ?
+                    <div className={"flex items-center gap-2"}>
+                        <p className={"cursor-pointer"} onClick={() => router.push(`/clientPage/${client._id}`)}>Да</p>
+                        <RxCheckCircled className={"text-success"}/>
+                    </div>
+                    :
+                    <div className={"flex items-center gap-2"}>
+                        <p className={"cursor-pointer"} onClick={() => router.push(`/clientPage/${client._id}`)}>Нет</p>
+                        <RxCrossCircled className={"text-error"}/>
+                    </div>
+                }
+                <p className={"cursor-pointer"}
+                   onClick={() => router.push(`/clientPage/${client._id}`)}>{client.subLevel == 0 ? "Неактивна" :
+                    client.subLevel == 1 ? "Минимум" :
+                        client.subLevel == 2 ? "Стандарт" :
+                            client.subLevel == 3 ? "Премиум" : "Неактивна"
+                }</p>
 
-                </div>
-                <hr className={"text-outline my-2"}/>
+                {/*<button onClick={() => console.log(client) }>log*/}
+                {/*</button>*/}
+                {submitActive ?
+                    <div className={'flex col-span-5 self-end justify-end gap-8 py-4'}>
+                        <h3 className={'text-center cursor-pointer text-primary-text'}
+                            onClick={() => {
+                                deleteUser(client._id)
+                            }}>Подтвердить</h3>
+                        <h3 className={'text-primary-text cursor-pointer'}
+                            onClick={() => {
+                                setSubmitActive(false)
+                            }}>Отменить</h3>
+                    </div>
+                    :
+                    <BiTrash className="absolute right-3 bottom-3 text-primary-text text-2xl cursor-pointer"
+                             onClick={() => {
+                                 setSubmitActive(true)
+                             }}/>}
             </div>
+            <hr className={"text-outline my-2"}/>
+
+        </div>
 
 
-)
+    )
 }

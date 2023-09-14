@@ -21,7 +21,7 @@ export default function ExceptionPopup({status, msg}) {
         },3000)
     },[error.errorStatus])
     return (
-        <div className={`${visibility ? "opacity-100" : "opacity-0"} items-center fixed top-4 right-12 flex justify-end flex-grow-0 duration-500 transition-all`}>
+        <div className={`${visibility ? "flex" : "hidden"} items-center fixed top-4 right-12 justify-end flex-grow-0 duration-500 transition-all`}>
             <Alert className={``} severity={error.errorStatus}>{error.errorMsg}</Alert>
         </div>
     )

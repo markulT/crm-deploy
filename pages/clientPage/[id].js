@@ -52,6 +52,11 @@ export default function ClientPage() {
     const handleMinistraSub = () => {
         dispatch(cancelMinistraSub(id))
         dispatch(getUser(id))
+
+    }
+
+    const refreshInfo = () => {
+        dispatch(getUser(id))
     }
 
     useEffect(() => {
@@ -74,28 +79,27 @@ export default function ClientPage() {
         [])
 
     return (
-        <div className="w-screen min-h-screen flex-1 bg-outline text-primary-text to-gray-600 font-primary px-16 pb-4">
+        <div className="w-full h-full flex-1 bg-outline text-primary-text to-gray-600 font-primary px-8 py-8">
             <div className="text-gray-200 ">
-                <div className={"flex w-full justify-between bg-white my-4 items-center rounded-xl p-2"}>
-                    <Link href={'/clients/1'}>
-                        <MdNavigateBefore
-                            className='text-4xl cursor-pointer text-gray-300'/>
-                    </Link>
+                <div className={"flex w-full justify-between bg-white mb-8 items-center rounded-xl p-2"}>
+                    <MdNavigateBefore
+                        className='text-4xl cursor-pointer text-gray-300'
+                        onClick={() => {
+                            router.back()
+                        }}/>
                     <VscDebugRestart
                         className='text-2xl cursor-pointer text-gray-300 mr-4'
-                        onClick={() => {
-                            dispatch(getUser(id))
-                        }}/>
+                        onClick={refreshInfo}/>
                 </div>
 
-                <main className={"grid grid-cols-5 grid-rows-2 gap-8"}>
+                <main className={"md:grid md:grid-cols-5 md:grid-rows-2 flex flex-col gap-8"}>
                     <ClientInfo/>
 
-                    <SubscriptionInfo/>
+                    <SubscriptionInfo refresh={refreshInfo}/>
 
                     <DecoderInfo/>
 
-                    <MobileSubInfo/>
+                    <MobileSubInfo refresh={refreshInfo}/>
                 </main>
             </div>
         </div>

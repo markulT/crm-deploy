@@ -10,14 +10,27 @@ import {AiOutlineWifi} from "@react-icons/all-files/ai/AiOutlineWifi";
 import {AiFillCloseCircle} from "@react-icons/all-files/ai/AiFillCloseCircle";
 import {AiFillCheckCircle} from "@react-icons/all-files/ai/AiFillCheckCircle";
 import {MdAlternateEmail} from "react-icons/md";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {BsActivity} from "react-icons/bs";
 import SubmitButton from "../SubmitButton";
+import {cancelMinistraSub, cancelsub, getUser} from "../../storage/clientsReducer/clientsReducer";
 
-export default function MobileSubInfo() {
+export default function MobileSubInfo({refresh}) {
     const router = useRouter()
 
     const currentClient = useSelector(state => state.clientsReducer.currentClient)
+
+    const dispatch = useDispatch()
+
+    const handleCancelSub = async (id) => {
+        await dispatch(cancelsub(id))
+        refresh()
+    }
+    const handleMinistraSub = () => {
+        dispatch(cancelMinistraSub(id))
+        dispatch(getUser(id))
+    }
+
 
     return (
         <section className={"bg-white w-full p-4 rounded-xl h-full col-span-3"}>
@@ -41,11 +54,17 @@ export default function MobileSubInfo() {
                         </div>}
                     </h3>
                 </div>
-                <ClientField title={'Есть подписка?'}
-                             value={currentClient.mobileSubLevel === 1 ? 'Есть' : currentClient.mobileSubLevel === 0 ? 'Нету' : 'Нету'}/>
-                <ClientField title={'Order ID'} value={currentClient.mobileSubOrderId ? currentClient.mobileSubOrderId : "Нету"}/>
-                <ClientField title={'Дата подписки Mobile Maximum'} value={currentClient.ministraDate ? currentClient.ministraDate : "Нету" }/>
-                {currentClient.mobileSubLevel === 1 ?
+                <ClientField title={'Подписка'}
+                             value={currentClient.subLevel === 0 ? "Неактивна" :
+                                    currentClient.subLevel === 1 ? "Минимум" :
+                                     currentClient.subLevel == 2 ? "Стандарт" :
+                                     currentClient.subLevel == 3 ? "Премиум" : "Неактивна"
+                             }/>
+                <ClientField title={'Order ID'}
+                             value={currentClient.mobileSubOrderId ? currentClient.mobileSubOrderId : "Нету"}/>
+                <ClientField title={'Дата подписки Mobile Maximum'}
+                             value={currentClient.ministraDate ? currentClient.ministraDate : "Нету"}/>
+                {currentClient.mobileSubLevel == 1 || currentClient.mobileSubLevel == 2 || currentClient.mobileSubLevel == 3 ?
                     <SubmitButton callback={() => {
                         handleCancelSub(currentClient._id)
                     }}/>

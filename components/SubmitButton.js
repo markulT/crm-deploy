@@ -16,17 +16,19 @@ export default function SubmitButton({callback}) {
                     console.log(currentClient)
                 }}>Get client
                 </button> */}
-            <button onClick={() => {
-                callback()
-                setAreYouSure(!areYouSure)
-            }}
-                    className={`${areYouSure ? "visible bg-red-600 hover:bg-red-700 rounded-2xl p-4 ml-5  px-7" : "hidden"}`}>Да
-            </button>
-            <button onClick={() => {
-                setAreYouSure(!areYouSure)
-            }}
-                    className={`${areYouSure ? "visible bg-green-600 hover:bg-green-700 rounded-2xl p-4 ml-5 px-6" : "hidden"}`}>Нет
-            </button>
+            <div className={"flex w-full items-center gap-8"}>
+                <button onClick={() => {
+                    callback()
+                    setAreYouSure(!areYouSure)
+                }}
+                        className={`${areYouSure ? "visible" : "hidden"}`}>Да
+                </button>
+                <button onClick={() => {
+                    setAreYouSure(!areYouSure)
+                }}
+                        className={`${areYouSure ? "visible" : "hidden"}`}>Нет
+                </button>
+            </div>
         </>
     )
 }
