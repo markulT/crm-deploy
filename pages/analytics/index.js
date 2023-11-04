@@ -90,17 +90,17 @@ export default function Analytics() {
                 </h1>
             </section>*/}
             <section className={"w-full grid grid-cols-3 gap-8 mt-8"}>
-                <Stats title={"Зарегестрировано"} count={newUsersLastMonthData[0]} gain={parseFloat((newUsersLastMonthData[1]/newUsersLastMonthData[0]*100).toFixed(2))}/>
-                <Stats title={"Купили подписку"} count={newSubsLastMonthData[0]} gain={parseFloat((newSubsLastMonthData[1]/newSubsLastMonthData[0]*100).toFixed(2))}/>
-                <Stats title={"Премиум клиентов"} count={newPremiumLastMonthData[0]} gain={parseFloat((newPremiumLastMonthData[1]/newPremiumLastMonthData[0]*100).toFixed(2))}/>
+                <Stats title={"Зарегестрировано"} count={newUsersLastMonthData[1]} gain={newUsersLastMonthData[1] === 0 ? 0 : parseFloat((newUsersLastMonthData[0]/newUsersLastMonthData[1]*100).toFixed(2))}/>
+                <Stats title={"Купили подписку"} count={newSubsLastMonthData[1]} gain={newSubsLastMonthData[1] === 0 ? 0 : parseFloat((newSubsLastMonthData[0]/newSubsLastMonthData[1]*100).toFixed(2))}/>
+                <Stats title={"Премиум клиентов"} count={newPremiumLastMonthData[1]} gain={newPremiumLastMonthData[1] === 0 ? 0 : parseFloat((newPremiumLastMonthData[0]/newPremiumLastMonthData[1]*100).toFixed(2))}/>
             </section>
             <section className={"lg:grid lg:grid-cols-5 lg:grid-rows-2 flex flex-col w-full gap-8 mt-8 lg:h-[80rem]"}>
                 <DoughnutChart label={"Количество пользователей"} data={subsChartData}
-                               labels={['Без подписки', 'Минимум', 'Стандарт', 'Премиум']} title={"Чарт подписок"}/>
+                               labels={['Без подписки', 'Минимум', 'Стандарт', 'Премиум', "Тестовый период"]} title={"Чарт подписок"}/>
                 <BarChart color={"orange"} title={"Чарт дат покупки по месяцах"} data={ministraDateData} label={'Куплено подписок в 2023 году'} labels={months}/>
                 <BarChart color={"blue"} title={"Чарт дат регистрации по месяцах"} data={signDateData} label={'Зарегистриовано пользователей в 2023 году'} labels={months}/>
                 <DoughnutChart label={"Количество пользователей"} data={emailsChartData}
-                               labels={['Неактивированій емейл', 'Активірований емейл']} title={"Активированіе пользователи"}/>
+                               labels={['Неактивированый емейл', 'Активырований емейл']} title={"Активированые пользователи"}/>
             </section>
 
         </div>

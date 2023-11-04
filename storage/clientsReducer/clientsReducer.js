@@ -50,7 +50,6 @@ export const setPageCount = (pageCount) => ({type: SET_PAGE_COUNT, pageCount})
 
 export const getUsers = () => async (dispatch) => {
     const response = await api.get(`${serverUrl}/admin/getUsers`, {withCredentials: true})
-    console.log(response.data.users)
     dispatch(setClients(response.data.users))
 }
 
@@ -85,6 +84,12 @@ export const getRandomUsers = (gap) => async (dispatch) => {
     dispatch(setClients(response.data.users.slice(start, end)))
 }
 
+export const getUsersCount = () => async (dispatch) => {
+    const response = await api.get(`${serverUrl}/admin/getUsersCount`, {withCredentials: true})
+    return response.data.users
+
+}
+
 export const getPage = (pageSize, pageId) => async (dispatch) => {
     const response = await api.get(`${serverUrl}/admin/getPage/?pageSize=${pageSize}&pageId=${pageId}`)
     if (response === undefined) {
@@ -98,8 +103,6 @@ export const getPage = (pageSize, pageId) => async (dispatch) => {
 
 export const getPageBy = (pageSize, pageId, filters) => async (dispatch) => {
 
-    console.log(filters)
-    console.log(`${serverUrl}/admin/getPageBy/?pageSize=${pageSize}&pageId=${pageId}${filters}`)
     const response = await api.get(`${serverUrl}/admin/getPageBy/?pageSize=${pageSize}&pageId=${pageId}&${filters}`)
     if (response === undefined) {
         dispatch(setError({msg:"У вас недостаточно прав", status:"error"}))
@@ -115,6 +118,21 @@ export const getUser = (id) => async (dispatch) => {
     if (!response.data) {
         Router.push('/auth/login')
     }
+
+    const userMinistra = response.data.user;
+    // Convert date strings to Date objects
+    if (userMinistra && userMinistra.ministraDate) {
+        userMinistra.ministraDate = new Date(userMinistra.ministraDate);
+    }
+
+    if (userMinistra && userMinistra.signDate) {
+        userMinistra.signDate = new Date(userMinistra.signDate);
+    }
+
+    if (userMinistra && userMinistra.trialExpirationDate) {
+        userMinistra.trialExpirationDate = new Date(userMinistra.trialExpirationDate);
+    }
+
     dispatch(setCurrentMinstraClient(JSON.parse(response.data.clientMinistra)))
     dispatch(setCurrentClient(response.data.user))
 }
@@ -126,21 +144,18 @@ export const createClient = (password, fullName, email, phone, address) => async
         phone: phone,
         address: address
     }, {withCredentials: true})
-    console.log( "user")
-    console.log( response.data.user)
+
     return response.data.user
 }
 
 export const sendMails = ({emailArray, title, paragraph}) => async (dispatch) => {
-    console.log(emailArray)
-    console.log(title)
-    console.log(paragraph)
+
     const response = await api.post(`${serverUrl}/admin/sendTestEmail`, {
         emails: emailArray,
         title: title,
         paragraph: paragraph,
     }, {withCredentials: true})
-    console.log(response)
+
 }
 
 export const getAllActivatedEmails = () => async (dispatch) => {
@@ -154,9 +169,7 @@ export const deleteClient = (id) => async (dispatch) => {
 }
 export const findUsersRegex = (searchQuery, pageId) => async (dispatch) => {
     const regex = searchQuery.split(' ').join('+').toLowerCase()
-    console.log(regex)
     const response = await api.get(`${serverUrl}/admin/findClient/?pageSize=1&pageId=${pageId}&regex=${regex}`)
-    console.log(response.data.users)
     dispatch(setClients(response.data.users))
 }
 
@@ -165,4 +178,14 @@ export const cancelsub = (id) => async (dispatch) => {
 }
 export const cancelMinistraSub = (id) => async (dispatch) => {
     const response = await api.delete(`${serverUrl}/admin/cancelSub/${id}`, {withCredentials:true})
+}
+
+export const createTestSub = (id, time) => async (dispatch) => {
+    const response = await api.post(`${serverUrl}/admin/createTestSub/${id}`, {
+        time: time
+    }, {withCredentials:true})
+}
+
+export const updateMongo = (id) => async (dispatch) => {
+    const response = await api.get(`${serverUrl}/analytics/updateTypesMongo`, {withCredentials:true})
 }

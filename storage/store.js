@@ -6,6 +6,7 @@ import authReducer from "./authReducer/authReducer";
 import clientsReducer from "./clientsReducer/clientsReducer";
 import channelReducer from "./channelsReducer/channelReducer";
 import UiReducer from "./ui/UiReducer";
+import adminReducer from "./adminReducer/adminReducer";
 // import rootReducer from "./reducers";
 
 // initial states here
@@ -17,6 +18,7 @@ const middleware = [thunk];
 const reducers = combineReducers({
     authReducer: authReducer,
     clientsReducer:clientsReducer,
+    adminReducer:adminReducer,
     channelReducer:channelReducer,
     UiReducer:UiReducer
 })

@@ -109,7 +109,7 @@ export default function UserField({client}) {
                    onClick={() => router.push(`/clientPage/${client._id}`)}>{client.subLevel == 0 ? "Неактивна" :
                     client.subLevel == 1 ? "Минимум" :
                         client.subLevel == 2 ? "Стандарт" :
-                            client.subLevel == 3 ? "Премиум" : "Неактивна"
+                            client.subLevel == 3 ? "Премиум" :  client.subLevel == 4 ? "Тестовый период" :  "Неактивна"
                 }</p>
 
                 {/*<button onClick={() => console.log(client) }>log*/}

@@ -29,10 +29,11 @@ import {AiOutlineWifi} from "@react-icons/all-files/ai/AiOutlineWifi";
 import {AiFillPhone} from "@react-icons/all-files/ai/AiFillPhone";
 import SubmitButton from "../../components/SubmitButton";
 import {VscDebugRestart} from "@react-icons/all-files/vsc/VscDebugRestart";
-import ClientInfo from "../../components/ClienPage/ClientInfo";
-import SubscriptionInfo from "../../components/ClienPage/SubscriptionInfo";
-import DecoderInfo from "../../components/ClienPage/DecoderInfo";
-import MobileSubInfo from "../../components/ClienPage/MobileSubInfo";
+import ClientInfo from "../../components/ClientPage/ClientInfo";
+import SubscriptionInfo from "../../components/ClientPage/SubscriptionInfo";
+import DecoderInfo from "../../components/ClientPage/DecoderInfo";
+import MobileSubInfo from "../../components/ClientPage/MobileSubInfo";
+import PopUpCreateTestSub from "../../components/PopUps/PopUpCreateTestSub";
 
 
 export default function ClientPage() {
@@ -43,6 +44,7 @@ export default function ClientPage() {
     const ministraClient = useSelector(state => state.clientsReducer.currentClientMinistra)
     const admin = useSelector(state => state.authReducer)
     const [areYouSure, setAreYouSure] = useState(false)
+    const [popUpVisible, setPopUpVisible] = useState(false)
 
 
     const handleCancelSub = (id) => {
@@ -80,6 +82,7 @@ export default function ClientPage() {
 
     return (
         <div className="w-full h-full flex-1 bg-outline text-primary-text to-gray-600 font-primary px-8 py-8">
+            <PopUpCreateTestSub id={currentClient._id} visible={popUpVisible} setVisible={setPopUpVisible} refresh={refreshInfo}/>
             <div className="text-gray-200 ">
                 <div className={"flex w-full justify-between bg-white mb-8 items-center rounded-xl p-2"}>
                     <MdNavigateBefore
@@ -93,9 +96,10 @@ export default function ClientPage() {
                 </div>
 
                 <main className={"md:grid md:grid-cols-5 md:grid-rows-2 flex flex-col gap-8"}>
+
                     <ClientInfo/>
 
-                    <SubscriptionInfo refresh={refreshInfo}/>
+                    <SubscriptionInfo refresh={refreshInfo} setPopUpVisible={setPopUpVisible} popUpVisible={popUpVisible}/>
 
                     <DecoderInfo/>
 

@@ -29,6 +29,7 @@ const DoughnutChart = ({labels, label, title, data }) => {
                             'rgba(72, 128, 255, 1)',
                             'rgba(255, 135, 67, 1)',
                             'rgba(31, 178, 166, 1)',
+                            'rgba(252, 190, 45, 1)',
                         ],
                         borderWidth: 0,
                     },

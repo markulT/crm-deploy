@@ -32,7 +32,7 @@ export default function Add() {
         <div className="w-full h-screen bg-outline text-primary-text font-primary flex flex-col px-8 py-8">
             <h1 className="text-primary-text font-bold text-4xl ">Добавить клиента</h1>
             <div className="bg-white p-4 xl:w-2/3 rounded-3xl justify-center items-center mt-8 ">
-                <h2 className="text-primary-text font-bold text-2xl ">Создание емейла</h2>
+                <h2 className="text-primary-text font-bold text-2xl ">Создание клиента</h2>
                 <form className="rounded-xl grid gap-4 gap-x-10 md:grid-cols-2 md:grid-rows-3 grid-rows-6  mt-4" onClick={(e) => {
 
                     e.preventDefault()
@@ -63,7 +63,7 @@ export default function Add() {
                     </div>
                     <div className="flex flex-col">
                         <p className="ml-2 text-secondary-text">Телефон</p>
-                        <input placeholder={"Введите телефон"}  type="tel" value={phone} onChange={(e) => {
+                        <input placeholder={"+380123456789"}  type="tel" value={phone} onChange={(e) => {
                             setPhone(e.target.value)
                         }}
                                className="w-full text-md pl-3 bg-outline border-0 rounded-xl transition-all duration-300"

@@ -1,5 +1,12 @@
 import {useSelector, useDispatch} from "react-redux"
-import {getGainBy, getPage, getRandomUsers, getUsers, getUsersBy} from "../storage/clientsReducer/clientsReducer"
+import {
+    getGainBy,
+    getPage,
+    getRandomUsers,
+    getUsers,
+    getUsersBy,
+    getUsersCount
+} from "../storage/clientsReducer/clientsReducer"
 import {useRouter} from "next/router"
 import {useState, useEffect} from "react"
 import UserFieldHome from "../components/UserFieldHome"
@@ -58,9 +65,14 @@ export default function Home() {
         setSignDateData(data)
     }
 
+    const handleGetRandomUsers = async () => {
+        const gap = await dispatch(getUsersCount())
+        dispatch(getRandomUsers(gap < 4 ? gap : 4))
+    }
+
     useEffect(() => {
         getAllData()
-        dispatch(getRandomUsers(4))
+        handleGetRandomUsers()
     }, [])
 
     const months = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'];
@@ -71,9 +83,9 @@ export default function Home() {
                 <h1 className="text-primary-text font-bold text-4xl self-start">Главная</h1>
 
                 <section className={"w-full grid grid-cols-3 gap-8 mt-8 mb-8"}>
-                    <Stats title={"Зарегестрировано"} count={newUsersLastMonthData[0]} gain={parseFloat((newUsersLastMonthData[1]/newUsersLastMonthData[0]*100).toFixed(2))}/>
-                    <Stats title={"Купили подписку"} count={newSubsLastMonthData[0]} gain={parseFloat((newSubsLastMonthData[1]/newSubsLastMonthData[0]*100).toFixed(2))}/>
-                    <Stats title={"Премиум клиентов"} count={newPremiumLastMonthData[0]} gain={parseFloat((newPremiumLastMonthData[1]/newPremiumLastMonthData[0]*100).toFixed(2))}/>
+                    <Stats title={"Зарегестрировано"} count={newUsersLastMonthData[1]} gain={newUsersLastMonthData[1] === 0 ? 0 : parseFloat((newUsersLastMonthData[0]/newUsersLastMonthData[1]*100).toFixed(2))}/>
+                    <Stats title={"Купили подписку"} count={newSubsLastMonthData[1]} gain={newSubsLastMonthData[1] === 0 ? 0 : parseFloat((newSubsLastMonthData[0]/newSubsLastMonthData[1]*100).toFixed(2))}/>
+                    <Stats title={"Премиум клиентов"} count={newPremiumLastMonthData[1]} gain={newPremiumLastMonthData[1] === 0 ? 0 : parseFloat((newPremiumLastMonthData[0]/newPremiumLastMonthData[1]*100).toFixed(2))}/>
                 </section>
 
                 <div className="mt-8 bg-white flex flex-col px-8 rounded-xl">
@@ -95,10 +107,9 @@ export default function Home() {
 
                 <div className={'lg:h-[32rem] w-full mt-8 lg:grid lg:grid-cols-5 lg:grid-rows-1 flex flex-col gap-8'}>
                     <DoughnutChart label={"Количество пользователей"} data={subsChartData}
-                                   labels={['Без подписки', 'Минимум', 'Стандарт', 'Премиум']} title={"Чарт подписок"}/>
+                                   labels={['Без подписки', 'Минимум', 'Стандарт', 'Премиум', "Тестовый период"]} title={"Чарт подписок"}/>
                     <BarChart color={"blue"} title={"Чарт дат регистрации по месяцах"} data={signDateData} label={'Зарегистриовано пользователей в 2023 году'} labels={months}/>
                 </div>
-
 
             </div>
 

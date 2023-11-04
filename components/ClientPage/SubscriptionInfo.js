@@ -9,14 +9,37 @@ import {AiOutlineShoppingCart} from "@react-icons/all-files/ai/AiOutlineShopping
 import {RiFundsFill} from "@react-icons/all-files/ri/RiFundsFill";
 import SubmitButton from "../SubmitButton";
 import {useDispatch, useSelector} from "react-redux";
-import {cancelMinistraSub, cancelsub, getUser} from "../../storage/clientsReducer/clientsReducer";
+import {
+    cancelMinistraSub,
+    cancelsub,
+    createTestSub,
+    getUser,
+    updateMongo
+} from "../../storage/clientsReducer/clientsReducer";
+import {useEffect, useState} from "react";
 
-export default function SubscriptionInfo({refresh}) {
+export default function SubscriptionInfo({refresh, popUpVisible, setPopUpVisible}) {
     const router = useRouter()
     const currentClient = useSelector(state => state.clientsReducer.currentClient)
     const ministraClient = useSelector(state => state.clientsReducer.currentClientMinistra)
 
     const dispatch = useDispatch()
+
+    const [daysUntilExpiration, setDaysUntilExpiration] = useState(null);
+
+    useEffect(() => {
+        if (currentClient.ministraDate) {
+            const today = new Date();
+            const expirationDate = new Date(currentClient.ministraDate);
+
+            expirationDate.setDate(expirationDate.getDate() + 14);
+
+            const timeDifference = expirationDate - today;
+            const daysDifference = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
+
+            setDaysUntilExpiration(daysDifference);
+        }
+    }, [currentClient.ministraDate]);
 
     const handleCancelSub = (id) => {
         dispatch(cancelsub(id))
@@ -24,6 +47,10 @@ export default function SubscriptionInfo({refresh}) {
     }
     const handleMinistraSub = async (id) => {
         await dispatch(cancelMinistraSub(id))
+        refresh()
+    }
+    const handleCreateTestSub = async (id) => {
+        await dispatch(createTestSub(id, new Date()))
         refresh()
     }
 
@@ -43,7 +70,9 @@ export default function SubscriptionInfo({refresh}) {
                     <ClientField value={currentClient.subLevel === 0 ? "Неактивна" :
                         currentClient.subLevel === 1 ? "Минимум" :
                             currentClient.subLevel == 2 ? "Стандарт" :
-                                currentClient.subLevel == 3 ? "Премиум" : "Неактивна"
+                                currentClient.subLevel == 3 ? "Премиум" :
+                                    currentClient.subLevel == 4 ? "Тестовый период" :
+                                    "Неактивна"
                     } title={
                         <div className="flex items-center">
                             <RiFundsFill className='mr-2 text-gray-500'></RiFundsFill>
@@ -53,10 +82,11 @@ export default function SubscriptionInfo({refresh}) {
                     {/*<button onClick={() => console.log(currentClient)}>log</button>*/}
                     {/*<button onClick={() => console.log(ministraClient)}>log2</button>*/}
                 </div>
+                {/*<button onClick={() => dispatch(updateMongo())}>log</button>*/}
 
                 <div className={"col-span-2"}>
                     <ClientField
-                        value={currentClient.ministraDate ? currentClient.ministraDate : "Нету" }
+                        value={currentClient.ministraDate != null ? currentClient.ministraDate.toLocaleDateString("de-DE", { year: 'numeric', month: '2-digit', day: '2-digit' }) : "Нету"}
                         title={
                             <div className="flex items-center">
                                 <RiFundsFill className='mr-2 text-gray-500'></RiFundsFill>
@@ -64,9 +94,27 @@ export default function SubscriptionInfo({refresh}) {
                             </div>
                         }/>
                 </div>
-                {currentClient.subLevel == 1 || currentClient.subLevel == 2 || currentClient.subLevel == 3 ?
-                    <SubmitButton callback={() => {
+                {currentClient.orderId == "TRIAL" && currentClient.subLevel > 0 ?
+                    <div className={"col-span-2"}>
+                        <ClientField
+                            value={currentClient.trialExpirationDate != null ? currentClient.trialExpirationDate.toLocaleDateString("de-DE", { year: 'numeric', month: '2-digit', day: '2-digit' }) : "Нету"}
+                            title={
+                                <div className="flex items-center">
+                                    <RiFundsFill className='mr-2 text-gray-500'></RiFundsFill>
+                                    Дата конца тестового периода:
+                                </div>
+                            }/>
+                        {/*<button onClick={() => console.log(currentClient)}>clikc</button>*/}
+                    </div> : <></>}
+                {currentClient.subLevel == 1 || currentClient.subLevel == 2 || currentClient.subLevel == 3 || currentClient.subLevel == 4 ?
+                    <SubmitButton disabled={false} confirmation={true} text={"Отменить подписку"} callback={() => {
                         handleMinistraSub(currentClient._id)
+                    }}/>
+                    : ""}
+                {currentClient.subLevel == 0 ?
+                    <SubmitButton disabled={false} text={"Добавить тестовую подписку"} callback={() => {
+                        setPopUpVisible(true)
+                        // handleCreateTestSub(currentClient._id)
                     }}/>
                     : ""}
             </div>

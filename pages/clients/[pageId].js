@@ -15,6 +15,7 @@ import {VscDebugRestart} from "@react-icons/all-files/vsc/VscDebugRestart";
 import UserField from "../../components/home/UserField";
 import {useRef} from "react";
 import Filter from "../../components/ClientsPage/Filter";
+import PopUpCreateLink from "../../components/PopUps/PopUpCreateLink";
 
 
 export default function Clients() {
@@ -38,6 +39,7 @@ export default function Clients() {
     const [email, setEmail] = useState('')
     const [phone, setPhone] = useState('')
     const [address, setAddress] = useState('')
+    const [invitationLinkVisible, setInvitationLinkVisible] = useState(false)
     const [pageSize, setPageSize] = useState(12)
     const pageCount = useSelector(state => state.clientsReducer.pageCount)
     const [pageNumber, setPageNumber] = useState(1)
@@ -51,6 +53,10 @@ export default function Clients() {
         await dispatch(createClient(password, fullName, email, phone, address))
         clearForm()
         dispatch(getPage(pageSize, pageId))
+    }
+
+    const createInvitationLink = async () => {
+        setInvitationLinkVisible(true)
     }
     const clearForm = () => {
         setEmail('');
@@ -68,7 +74,6 @@ export default function Clients() {
 
     useEffect(() => {
         setPageNumber(router.query.pageId)
-        console.log(clients.users[2])
     }, [])
 
     useEffect(() => {
@@ -80,7 +85,6 @@ export default function Clients() {
         setPageNumber(1)
         router.push(`/clients/${Number(1)}`)
         dispatch(getPageBy(pageSize, pageId, filters))
-        console.log(clients)
     }, [filters])
 
     const findUsers = async (searchQuery) => {
@@ -106,7 +110,8 @@ export default function Clients() {
 
     return (
         <div className="flex relative flex-col h-fit min-h-screen w-full justify-start bg-outline font-primary px-8">
-            <Filter trigger={visibleTrigger} setTrigger={setVisibleTrigger} filters={filters} setFilters={setFilters} />
+            <PopUpCreateLink visible={invitationLinkVisible} setVisible={setInvitationLinkVisible} dealerCode={admin.email || admin.login} link={`http://localhost:3000/auth/signup?dealerCode=${admin.email || admin.login}`}/>
+            <Filter trigger={visibleTrigger} setTrigger={setVisibleTrigger} filters={filters} setFilters={setFilters}/>
             <div className={"flex lg:flex-row flex-col w-full justify-between mt-8"}>
                 <h1 className="text-primary-text font-bold text-4xl ">Карточки клиентов</h1>
                 <div className={"flex mt-4 lg:mt-0"}>
@@ -118,7 +123,7 @@ export default function Clients() {
                                     findUsers(search);
                                 }}
                             >
-                                <BiSearch />
+                                <BiSearch/>
                             </div>
                             <input
                                 type="text"
@@ -131,22 +136,33 @@ export default function Clients() {
                                 placeholder="Поиск"
                             />
                         </div>
-                        <button type="submit" style={{ display: 'none' }}></button>
+                        <button type="submit" style={{display: 'none'}}></button>
                     </form>
-                    <button className={"bg-button px-8 rounded-xl ml-4"} onClick={() => {
-                        // setCreate(!create)
-                        router.push("add")
-                    }}>Добавить
+                    {admin.role === "Dealer" ? <button
+                        className={"bg-success hover:bg-success-dark  transition-all duration-300 ease-in px-8 rounded-xl ml-4"}
+                        onClick={
+                            createInvitationLink
+                        }>Пригласить клиента
+
+                    </button> : <></>}
+                    <button
+                        className={"bg-button hover:bg-button-dark transition-all duration-300 ease-in  px-8 rounded-xl ml-4"}
+                        onClick={() => {
+                            // setCreate(!create)
+                            router.push("add")
+                        }}>Добавить
 
                     </button>
-                    <button className={"bg-active px-8 rounded-xl ml-4"} onClick={() => {
-                    setVisibleTrigger(!visibleTrigger)
-                    }}>Фильтр
+
+                    <button
+                        className={"bg-active hover:bg-active-dark transition-all duration-300 ease-in px-8 rounded-xl ml-4"}
+                        onClick={() => {
+                            setVisibleTrigger(!visibleTrigger)
+                        }}>Фильтр
 
                     </button>
                 </div>
             </div>
-
 
 
             <section className={"bg-white rounded-xl w-full mt-8"}>

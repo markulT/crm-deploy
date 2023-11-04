@@ -40,7 +40,7 @@ export default function ClientInfo() {
                     </div>
                 </div>
                 <div>
-                    <ClientField value={currentClient?.address} title={
+                    <ClientField value={currentClient?.address === "" ? "Нету" : currentClient?.address} title={
                         <div className="flex items-center">
                             <BiHomeAlt className='mr-2 text-gray-500'></BiHomeAlt>
                             Адрес:
@@ -49,7 +49,7 @@ export default function ClientInfo() {
                 </div>
 
                 <div>
-                    <ClientField value={currentClient?.phone} title={
+                    <ClientField value={currentClient?.phone === "" ? "Нету" : currentClient?.phone} title={
                         <div className="flex items-center">
                             <AiFillPhone className={'mr-2 text-gray-500'}/>
                             Номер телефона:
@@ -58,7 +58,7 @@ export default function ClientInfo() {
                 </div>
 
                 <div>
-                    <ClientField value={currentClient?.signDate} title={
+                    <ClientField value={currentClient?.signDate?.toLocaleDateString("de-DE", { year: 'numeric', month: '2-digit', day: '2-digit' })} title={
                         <div className="flex items-center">
                             <MdOutlineDateRange className={'mr-2 text-gray-500'}/>
                             Дата регистрации:

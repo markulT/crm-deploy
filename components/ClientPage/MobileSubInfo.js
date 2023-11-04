@@ -58,14 +58,15 @@ export default function MobileSubInfo({refresh}) {
                              value={currentClient.subLevel === 0 ? "Неактивна" :
                                     currentClient.subLevel === 1 ? "Минимум" :
                                      currentClient.subLevel == 2 ? "Стандарт" :
-                                     currentClient.subLevel == 3 ? "Премиум" : "Неактивна"
+                                     currentClient.subLevel == 3 ? "Премиум" :
+                                         currentClient.subLevel == 4 ? "Тестовый период" : "Неактивна"
                              }/>
                 <ClientField title={'Order ID'}
                              value={currentClient.mobileSubOrderId ? currentClient.mobileSubOrderId : "Нету"}/>
                 <ClientField title={'Дата подписки Mobile Maximum'}
-                             value={currentClient.ministraDate ? currentClient.ministraDate : "Нету"}/>
+                             value={currentClient.ministraDate ? currentClient.ministraDate.toLocaleDateString("de-DE", { year: 'numeric', month: '2-digit', day: '2-digit' }) : "Нету"}/>
                 {currentClient.mobileSubLevel == 1 || currentClient.mobileSubLevel == 2 || currentClient.mobileSubLevel == 3 ?
-                    <SubmitButton callback={() => {
+                    <SubmitButton disabled={false} confirmation={true} text={"Отменить подписку"} callback={() => {
                         handleCancelSub(currentClient._id)
                     }}/>
                     : ""}
