@@ -110,7 +110,7 @@ export default function Clients() {
 
     return (
         <div className="flex relative flex-col h-fit min-h-screen w-full justify-start bg-outline font-primary px-8">
-            <PopUpCreateLink visible={invitationLinkVisible} setVisible={setInvitationLinkVisible} dealerCode={admin.email || admin.login} link={`http://localhost:3000/auth/signup?dealerCode=${admin.email || admin.login}`}/>
+            <PopUpCreateLink visible={invitationLinkVisible} setVisible={setInvitationLinkVisible} dealerCode={admin.email || admin.login} link={`https://maximum-ott.com/auth/signup?dealerCode=${admin.email || admin.login}`}/>
             <Filter trigger={visibleTrigger} setTrigger={setVisibleTrigger} filters={filters} setFilters={setFilters}/>
             <div className={"flex lg:flex-row flex-col w-full justify-between mt-8"}>
                 <h1 className="text-primary-text font-bold text-4xl ">Карточки клиентов</h1>
